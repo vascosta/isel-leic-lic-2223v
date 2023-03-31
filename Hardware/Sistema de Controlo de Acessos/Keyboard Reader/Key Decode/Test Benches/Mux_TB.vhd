@@ -7,14 +7,14 @@ end Mux_TB;
 architecture behavioral of Mux_TB is
 
 component Mux is 
-	 port
-    (
-        -- Input ports
-        I	: in std_logic_vector(3 downto 0);
-        S	: in std_logic_vector(1 downto 0);
+	port
+	(
+		-- Input ports
+        	I	: in std_logic_vector(3 downto 0);
+        	S	: in std_logic_vector(1 downto 0);
 
-        -- Output ports
-        O : out std_logic
+        	-- Output ports
+        	O 	: out std_logic
     );
 end component;
 
@@ -30,7 +30,7 @@ begin
 
 -- UNIT UNDER TEST
 UUT: Mux port map (I(0) => I_TB(0), I(1) => I_TB(1), I(2) => I_TB(2), I(3) => I_TB(3), S(0) => S_TB(0), S(1) => S_TB(1), 
-										O => O_TB);
+		   O => O_TB);
 
 stimulus : process
 begin
