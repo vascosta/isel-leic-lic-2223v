@@ -1,4 +1,4 @@
-LIBRARY ieee;
+library ieee;
 USE ieee.std_logic_1164.all;
 
 entity KeyScan_TB is 
@@ -9,15 +9,15 @@ architecture behavioral of KeyScan_TB is
 component KeyScan is 
 	port
 	(  
-		 -- Input ports
-       Kscan    		: in std_logic;
-		 CLK_in	  		: in std_logic;
-		 ButtonLine		: in std_logic_vector(3 downto 0);
+		-- Input ports
+      		Kscan  		: in std_logic;
+		Clk	  	: in std_logic;
+		ButtonLine	: in std_logic_vector(3 downto 0);
 
-		 -- Output ports
-       K        		: out std_logic_vector(3 downto 0);
-       Kpress   		: out std_logic;
-		 ButtonColumn	: out std_logic_vector(2 downto 0)
+		-- Output ports
+      		K      		: out std_logic_vector(3 downto 0);
+      		Kpress   	: out std_logic;
+		ButtonColumn	: out std_logic_vector(2 downto 0)
 	);
 end component;
 
@@ -25,25 +25,32 @@ end component;
 constant MCLK_PERIOD : time := 20 ns;
 constant MCLK_HALF_PERIOD : time := MCLK_PERIOD /2 ;
 
-signal Kscan_TB, clk_in_TB, Kpress_TB 	: std_logic;
-signal ButtonLine_TB, K_TB 				: std_logic_vector (3 downto 0);
-signal ButtonColumn_TB 						: std_logic_vector (2 downto 0);
+signal Kscan_TB, Clk_TB, Kpress_TB	: std_logic;
+signal ButtonLine_TB, K_TB 		: std_logic_vector (3 downto 0);
+signal ButtonColumn_TB 			: std_logic_vector (2 downto 0);
 
 begin
 
 -- UNIT UNDER TEST
-UUT: KeyScan port map (Kscan => Kscan_TB, CLK_in => clk_in_TB, ButtonLine => ButtonLine_TB, 
-								K => K_TB, Kpress => Kpress_TB, ButtonColumn => ButtonColumn_TB);
+UUT: KeyScan port map (Kscan => Kscan_TB, Clk => Clk_TB, ButtonLine => ButtonLine_TB, 
+		       K => K_TB, Kpress => Kpress_TB, ButtonColumn => ButtonColumn_TB);
 
 clk_gen : process 
+
 begin
-clk_in_TB <= '0';
+
+Clk_TB <= '0';
+
 wait for MCLK_HALF_PERIOD;
-clk_in_TB <= '1';
+
+Clk_TB <= '1';
+
 wait for MCLK_HALF_PERIOD;
+
 end process;
 
 stimulus : process
+
 begin
 
 -- reset
@@ -51,8 +58,8 @@ Kscan_TB <= '0';
 
 wait for MCLK_PERIOD;
 
-Kscan_TB <= '1';
-ButtonLine_TB <= "0000";
+Kscan_TB 	<= '1';
+ButtonLine_TB	<= "0000";
 
 wait for MCLK_PERIOD;
 
