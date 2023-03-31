@@ -1,5 +1,5 @@
-LIBRARY ieee;
-USE ieee.std_logic_1164.all;
+library ieee;
+use ieee.std_logic_1164.all;
 
 entity KeyControl is 
 	port
@@ -58,7 +58,7 @@ begin
 end process;
 
 -- GENERATE OUTPUTS
-Kscan	<= '1' when (CurrentState = STATE_DETETAR_TECLA and Kpress = '0')   else '0';
-Kval  <= '1' when (CurrentState = STATE_TECLA_PREMIDA)	else '0';
+Kscan	<= '1' when (CurrentState = STATE_DETETAR_TECLA and Kpress = '0')		else '0';
+Kval  <= '1' when (CurrentState = STATE_TECLA_PREMIDA)						  	else '0';
 
 end behavioral;
