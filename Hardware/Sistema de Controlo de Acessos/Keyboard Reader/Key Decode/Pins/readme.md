@@ -1,1 +1,1 @@
-Package for Key Decode pins
+Package for Key Decode modules pins
