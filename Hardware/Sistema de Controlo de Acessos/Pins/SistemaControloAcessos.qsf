@@ -1,14 +1,14 @@
 set_location_assignment PIN_W8     -to LCD_Rs
 set_location_assignment PIN_V5     -to LCD_E
 
-set_location_assignment PIN_AA15  -to 	LCD_D[0]
-set_location_assignment PIN_W13   -to 	LCD_D[1]
-set_location_assignment PIN_AB13   -to 	LCD_D[2]
-set_location_assignment PIN_Y11    -to 	LCD_D[3]
-#set_location_assignment PIN_W11    -to LCD_DATA[4]
-#set_location_assignment PIN_AA10   -to LCD_DATA[5]
-#set_location_assignment PIN_Y8     -to 	LCD_DATA[6]
-#set_location_assignment PIN_Y7     -to 	LCD_DATA[7]
+#set_location_assignment PIN_AA15  -to 	LCD_D[0]
+#set_location_assignment PIN_W13   -to 	LCD_D[1]
+#set_location_assignment PIN_AB13   -to 	LCD_D[2]
+#set_location_assignment PIN_Y11    -to 	LCD_D[3]
+set_location_assignment PIN_W11    -to LCD_D[0]
+set_location_assignment PIN_AA10   -to LCD_D[1]
+set_location_assignment PIN_Y8     -to 	LCD_D[2]
+set_location_assignment PIN_Y7     -to 	LCD_D[3]
 
 #set_location_assignment PIN_C10 -to inputPort[0]
 #set_location_assignment PIN_C11 -to inputPort[1]
