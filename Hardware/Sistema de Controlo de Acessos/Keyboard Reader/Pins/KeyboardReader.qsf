@@ -15,4 +15,4 @@ set_location_assignment PIN_B10    -to 	K[3]
 set_location_assignment PIN_B11    -to 	Kval
 
 set_location_assignment PIN_C10    -to  Kack
-set_location_assignment PIN_C11    -to  reset
+set_location_assignment PIN_C11    -to  Reset
