@@ -1,1 +1,1 @@
-Package for pins of Sistema de Controlo de Acessos
+Package for Sistema de Controlo de Acessos pins
