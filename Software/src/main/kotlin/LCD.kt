@@ -6,12 +6,12 @@ object LCD {
 
     // Escreve um nibble de comando/dados no LCD em paralelo
     private fun writeNibbleParallel(rs: Boolean, data: Int) {
-        val rsValue = if (rs) 1 else 0
-        HAL.writeBits(LCD_DATA_MASK, data or rsValue)
-        HAL.writeBits(LCD_RS_MASK, rsValue)
-        HAL.writeBits(LCD_E_MASK, 1)
+        if (rs) HAL.setBits(LCD_RS_MASK) else HAL.clearBits(LCD_RS_MASK)
+        HAL.writeBits(LCD_DATA_MASK, data)
         Thread.sleep(1)
-        HAL.writeBits(LCD_E_MASK, 0)
+        HAL.setBits(LCD_E_MASK)
+        Thread.sleep(1)
+        HAL.clearBits(LCD_E_MASK)
     }
     // Escreve um byte de comando/dados no LCD em série
     fun writeNibbleSerial(rs: Boolean, data: Int) {
@@ -44,22 +44,19 @@ object LCD {
         HAL.init()
 
         Thread.sleep(16)  // Esperar x ms
-        writeCMD(3)
+        writeNibble(false, 3)
         Thread.sleep(5)   // Esperar x ms
-        writeCMD(3)
+        writeNibble(false, 3)
         Thread.sleep(1)   // Esperar x ms
-        writeCMD(3)
+        writeNibble(false, 3)
 
-        writeCMD(2)
+        writeNibble(false, 2)
 
-        writeCMD(2)
         writeCMD(40)
 
         writeCMD(8)
 
         writeCMD(1)
-
-        writeCMD(6)
 
         writeCMD(15)
     }
@@ -85,9 +82,4 @@ object LCD {
         writeCMD(1)
         cursor(0,0)
     }
-}
-
-fun main() {
-    LCD.init()
-    println(LCD.writeCMD(2))
 }

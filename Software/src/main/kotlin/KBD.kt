@@ -39,16 +39,3 @@ object KBD { // Ler teclas. Métodos retornam ‘0’..’9’,’#’,’*’ o
         return key
     }
 }
-
-fun main() {
-    LCD.init()
-    KBD.init()
-
-    while (true) {
-        val key = KBD.getKey()
-        if (key != 0.toChar()) {
-            LCD.write(key.toString())
-            println(key)
-        }
-    }
-}
