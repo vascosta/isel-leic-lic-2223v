@@ -1,5 +1,5 @@
-LIBRARY ieee;
-USE ieee.std_logic_1164.all;
+library ieee;
+use ieee.std_logic_1164.all;
 
 entity Mux is 
     port
@@ -17,6 +17,6 @@ architecture structural of Mux is
 begin
 
 o <= ((not S(0) and not S(1) and I(0)) or (S(0) and not S(1) and I(1)) or 
-        (not S(0) and S(1) and I(2)) or (S(0) and S(1) and I(3)));
+      (not S(0) and S(1) and I(2)) or (S(0) and S(1) and I(3)));
 
 end structural;
