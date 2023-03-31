@@ -1,1 +1,1 @@
-Package for test benches of Sistema de Controlo de Acessos
+Package for Sistema de Controlo de Acessos test benches
