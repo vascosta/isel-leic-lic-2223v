@@ -9,14 +9,14 @@ entity Mux is
         S	: in std_logic_vector(1 downto 0);
 
         -- Output ports
-        O : out std_logic
+        O   : out std_logic
     );
 end Mux;
 
 architecture structural of Mux is
 begin
 
-o <= ((NOT S(0) AND NOT S(1) AND I(0)) OR (S(0) AND NOT S(1) AND I(1)) OR 
-        (NOT S(0) AND S(1) AND I(2)) OR (S(0) AND S(1) AND I(3)));
+o <= ((not S(0) and not S(1) and I(0)) or (S(0) and not S(1) and I(1)) or 
+        (not S(0) and S(1) and I(2)) or (S(0) and S(1) and I(3)));
 
 end structural;
