@@ -86,5 +86,4 @@ T2: Mux		port map (I(3) => BL_X(3), I(2) => BL_X(2), I(1) => BL_X(1), I(0) => BL
 T3: Decoder	port map (I(1) => OCounter_X(3), I(0) => OCounter_X(2), 
 		   	  O(2) => BC_X(2), O(1) => BC_X(1), O(0) => BC_X(0));
 									
-
 end structural;
