@@ -23,8 +23,8 @@ component KeyDecode is
 end component;
 
 --UUT signals
-constant MClk_PERIOD : time := 20 ns;
-constant MClk_HALF_PERIOD : time := MClk_PERIOD /2 ;
+constant MClk_PERIOD 		: time := 20 ns;
+constant MClk_HALF_PERIOD	: time := MClk_PERIOD /2 ;
 
 signal Kack_TB, Clk_TB, reset_TB, Kval_TB	: std_logic;
 signal ButtonLine_TB, K_TB			: std_logic_vector (3 downto 0);
