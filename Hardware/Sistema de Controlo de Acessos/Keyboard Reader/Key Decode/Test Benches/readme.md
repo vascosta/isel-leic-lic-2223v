@@ -1,1 +1,1 @@
-Package for test benches of Key Decode modules
+Package for Key Decode modules test benches
