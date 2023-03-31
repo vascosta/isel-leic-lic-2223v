@@ -1,5 +1,5 @@
-LIBRARY ieee;
-USE ieee.std_logic_1164.all;
+library ieee;
+use ieee.std_logic_1164.all;
 
 entity Mux_TB is 
 end Mux_TB;
@@ -10,17 +10,17 @@ component Mux is
 	port
 	(
 		-- Input ports
-        	I	: in std_logic_vector(3 downto 0);
-        	S	: in std_logic_vector(1 downto 0);
+      		I	: in std_logic_vector(3 downto 0);
+      		S	: in std_logic_vector(1 downto 0);
 
-        	-- Output ports
-        	O 	: out std_logic
-    );
+      		-- Output ports
+      		O 	: out std_logic
+    	);
 end component;
 
 --UUT signals
-constant MCLK_PERIOD : time := 20 ns;
-constant MCLK_HALF_PERIOD : time := MCLK_PERIOD /2 ;
+constant MCLK_PERIOD	: time := 20 ns;
+constant MCLK_HALF_PERIOD	: time := MCLK_PERIOD /2 ;
 
 signal I_TB	: std_logic_vector(3 downto 0);
 signal S_TB	: std_logic_vector(1 downto 0);
