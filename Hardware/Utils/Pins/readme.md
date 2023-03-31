@@ -1,1 +1,1 @@
-Package for pins of utils and its modules
+Package for pins of utils modules
