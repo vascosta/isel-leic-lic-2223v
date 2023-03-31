@@ -3,24 +3,24 @@ USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
 
 entity Counter is 
-    port 
-	 (
-        -- Input ports
-        CLK : in std_logic;
-        CE  : in std_logic;
+	port 
+	(
+		-- Input ports
+		Clk : in std_logic;
+      		Ce  : in std_logic;
 
-        -- Output ports
-        O   : out std_logic_vector(3 downto 0)
+      		-- Output ports
+      		O   : out std_logic_vector(3 downto 0)
     );
 end Counter;
 
 architecture behavioral of Counter is
     signal count: integer := 0;
 begin
-    process(CLK)
+    process(Clk)
     begin
-        if rising_edge(CLK) then
-            if (CE = '1') then
+        if rising_edge(Clk) then
+            if (Ce = '1') then
                 if (count = 15) then
                     count <= 0;
                 else
