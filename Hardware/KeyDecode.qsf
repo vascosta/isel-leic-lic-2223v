@@ -1,0 +1,18 @@
+set_location_assignment PIN_W5     -to 	ButtonLine[0]
+set_location_assignment PIN_AA14   -to 	ButtonLine[1]
+set_location_assignment PIN_W12    -to 	ButtonLine[2]
+set_location_assignment PIN_AB12   -to	ButtonLine[3]
+set_location_assignment PIN_AB11   -to	ButtonColumn[0]
+set_location_assignment PIN_AB10   -to	ButtonColumn[1]
+set_location_assignment PIN_AA9    -to	ButtonColumn[2]
+
+set_location_assignment PIN_P11    -to    clk
+
+set_location_assignment PIN_A8     -to 	K[0]
+set_location_assignment PIN_A9     -to 	K[1]
+set_location_assignment PIN_A10    -to 	K[2]
+set_location_assignment PIN_B10    -to 	K[3]
+set_location_assignment PIN_B11    -to 	Kval
+
+set_location_assignment PIN_C10    -to    Kack
+set_location_assignment PIN_C11    -to    reset
