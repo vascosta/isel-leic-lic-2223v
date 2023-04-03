@@ -9,8 +9,8 @@ entity Counter is
 		Clk : in std_logic;
 		Ce  : in std_logic;
 
-    -- Output ports
-    O   : out std_logic_vector(3 downto 0)
+    		-- Output ports
+    		O   : out std_logic_vector(3 downto 0)
 	);
 end Counter;
 
