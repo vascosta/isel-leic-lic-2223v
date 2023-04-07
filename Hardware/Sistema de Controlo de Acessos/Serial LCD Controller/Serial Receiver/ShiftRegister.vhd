@@ -26,10 +26,13 @@ begin
 		if rising_edge(clk) then
 			if (reset = '1') then
 				D_X <= "00000";
-			if (enable = '1') then
-				D_X(4 downto 1) <= D_X(3 downto 0);
-				D_X(0) <= data;
 			end if;
+			if (enable = '1') then
+				D_X(4) <= data;
+				D_X(3) <= D_X(4);
+				D_X(2) <= D_X(3);
+				D_X(1) <= D_X(2);
+				D_X(0) <= D_X(1);
 			end if;
 		end if;
 	end process;
