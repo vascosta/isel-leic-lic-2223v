@@ -6,116 +6,197 @@ end KeyboardReader_TB;
 
 architecture behavioral of KeyboardReader_TB is
 
-component KeyboardReader is
-  port
-  (
-    -- Input ports
+component KeyboardReader is 
+port
+	(
+		-- Input ports
 		Kack      		: in std_logic;
-		Clk    	 	    : in std_logic;
-		Reset     		: in std_logic;
+		clk    	 		: in std_logic;
+		reset     		: in std_logic;
 		ButtonLine  	: in std_logic_vector(3 downto 0);
 
 		-- Output ports
 		Kval      		: out std_logic;
-		K	    			  : out std_logic_vector(3 downto 0);
-		ButtonColumn  : out std_logic_vector(2 downto 0)
+		K	    			: out std_logic_vector(3 downto 0);
+		ButtonColumn  	: out std_logic_vector(2 downto 0)
 );
 end component;
 
 --UUT signals
-constant MClk_PERIOD 		  : time := 20 ns;
-constant MClk_HALF_PERIOD : time := MClk_PERIOD /2 ;
+constant MCLK_PERIOD : time := 20 ns;
+constant MCLK_HALF_PERIOD : time := MCLK_PERIOD /2 ;
 
-signal Kack_TB, Clk_TB, Reset_TB, Kval_TB	: std_logic;
-signal ButtonLine_TB, K_TB						    : std_logic_vector (3 downto 0);
-signal ButtonColumn_TB							      : std_logic_vector (2 downto 0);
+signal Kack_tb, Kval_tb, clk_tb, reset_tb: std_logic;
+signal ButtonLine_tb, Kexit_tb: std_logic_vector (3 downto 0);
+signal ButtonColumn_tb: std_logic_vector (2 downto 0);
 
 begin
 
  --UNIT UNDER TEST
-UUT: KeyboardReader port map (Kack => Kack_TB, Clk => Clk_TB, Reset => Reset_TB, ButtonLine => ButtonLine_TB,
-										          Kval => Kval_TB,  K => K_TB, ButtonColumn => ButtonColumn_TB);
+UUT: KeyboardReader port map (clk => CLK_tb, reset => reset_tb, Kack => Kack_tb, ButtonLine => ButtonLine_tb,
+										ButtonColumn => ButtonColumn_tb, K => Kexit_tb, Kval => Kval_tb);
 
-Clk_gen : process 
+clk_gen : process 
 begin
-
-Clk_TB <= '0';
-
-wait for MClk_HALF_PERIOD;
-
-Clk_TB <= '1';
-
-wait for MClk_HALF_PERIOD;
-
+clk_tb <= '0';
+wait for MCLK_HALF_PERIOD;
+clk_tb <= '1';
+wait for MCLK_HALF_PERIOD;
 end process;
 
 stimulus : process
 begin
--- Reset
+-- reset
 
-Reset_TB <= '1';
+reset_tb <= '1';
 
-wait for MClk_PERIOD;
+wait for MCLK_PERIOD;
 
-Reset_TB <= '0';
+reset_tb <= '0';
 
-wait for MClk_PERIOD;
+wait for MCLK_PERIOD;
 
-ButtonLine_TB <= "0000";
+ButtonLine_tb <= "0000";
+Kack_tb <= '1';
 
-wait for MClk_PERIOD;
+wait for MCLK_PERIOD;
 
-Kack_TB <= '1';
+ButtonLine_tb <= "1111";
+Kack_tb <= '0';
 
-wait for MClk_PERIOD;
+wait for MCLK_PERIOD;
 
-Kack_TB <= '0';
+ButtonLine_tb <= "0001";
+Kack_tb <= '1';
 
-wait for MClk_PERIOD;
+wait for MCLK_PERIOD;
 
-ButtonLine_TB <= "0100";
+ButtonLine_tb <= "1111";
+Kack_tb <= '0';
 
-wait for MClk_PERIOD;
+wait for MCLK_PERIOD;
 
-ButtonLine_TB <= "1000";
+ButtonLine_tb <= "0100";
+Kack_tb <= '1';
 
-wait for MClk_PERIOD;
+wait for MCLK_PERIOD;
 
-ButtonLine_TB <= "0001";
+ButtonLine_tb <= "1111";
+Kack_tb <= '0';
 
-wait for MClk_PERIOD;
-
-ButtonLine_TB <= "0101";
-
-wait for MClk_PERIOD;
-
-ButtonLine_TB <= "1001";
-
-wait for MClk_PERIOD;
-
-ButtonLine_TB <= "0010";
-
-wait for MClk_PERIOD;
-
-ButtonLine_TB <= "0110";
-
-wait for MClk_PERIOD;
-
-ButtonLine_TB <= "1010";
-
-wait for MClk_PERIOD;
-
-ButtonLine_TB <= "0011";
-
-wait for MClk_PERIOD;
-
-ButtonLine_TB <= "0111";
-
-wait for MClk_PERIOD;
-
-ButtonLine_TB <= "1011";
-
-wait for MClk_PERIOD;
+--wait for MCLK_PERIOD;
+--
+--ButtonLine_tb <= "1000";
+--
+--wait for MCLK_PERIOD;
+--
+--Kack_tb <= '1';
+--
+--wait for MCLK_PERIOD;
+--
+--Kack_tb <= '0';
+--
+--wait for MCLK_PERIOD;
+--
+--ButtonLine_tb <= "0001";
+--
+--wait for MCLK_PERIOD;
+--
+--Kack_tb <= '1';
+--
+--wait for MCLK_PERIOD;
+--
+--Kack_tb <= '0';
+--
+--wait for MCLK_PERIOD;
+--
+--ButtonLine_tb <= "0101";
+--
+--wait for MCLK_PERIOD;
+--
+--Kack_tb <= '1';
+--
+--wait for MCLK_PERIOD;
+--
+--Kack_tb <= '0';
+--
+--wait for MCLK_PERIOD;
+--
+--ButtonLine_tb <= "1001";
+--
+--wait for MCLK_PERIOD;
+--
+--Kack_tb <= '1';
+--
+--wait for MCLK_PERIOD;
+--
+--Kack_tb <= '0';
+--
+--wait for MCLK_PERIOD;
+--
+--ButtonLine_tb <= "0010";
+--
+--wait for MCLK_PERIOD;
+--
+--Kack_tb <= '1';
+--
+--wait for MCLK_PERIOD;
+--
+--Kack_tb <= '0';
+--
+--wait for MCLK_PERIOD;
+--
+--ButtonLine_tb <= "0110";
+--
+--wait for MCLK_PERIOD;
+--
+--Kack_tb <= '1';
+--
+--wait for MCLK_PERIOD;
+--
+--Kack_tb <= '0';
+--
+--wait for MCLK_PERIOD;
+--
+--ButtonLine_tb <= "1010";
+--
+--wait for MCLK_PERIOD;
+--
+--Kack_tb <= '1';
+--
+--wait for MCLK_PERIOD;
+--
+--Kack_tb <= '0';
+--
+--wait for MCLK_PERIOD;
+--
+--ButtonLine_tb <= "0011";
+--
+--wait for MCLK_PERIOD;
+--
+--Kack_tb <= '1';
+--
+--wait for MCLK_PERIOD;
+--
+--Kack_tb <= '0';
+--
+--wait for MCLK_PERIOD;
+--
+--ButtonLine_tb <= "0111";
+--
+--wait for MCLK_PERIOD;
+--
+--Kack_tb <= '1';
+--
+--wait for MCLK_PERIOD;
+--
+--Kack_tb <= '0';
+--
+--wait for MCLK_PERIOD;
+--
+--ButtonLine_tb <= "1011";
+--
+--wait for MCLK_PERIOD;
 
 wait;
 
