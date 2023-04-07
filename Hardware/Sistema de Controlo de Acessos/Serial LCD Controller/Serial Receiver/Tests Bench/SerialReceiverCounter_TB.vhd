@@ -24,12 +24,12 @@ constant MCLK_PERIOD 		: time := 20 ns;
 constant MCLK_HALF_PERIOD	: time := MCLK_PERIOD /2 ;
 
 signal clk_TB, ce_TB, clr_TB	: std_logic;
-signal O_TB				: std_logic_vector (3 downto 0);
+signal O_TB							: std_logic_vector (3 downto 0);
 
 begin
 
 -- UNIT UNDER TEST
-UUT: SerialReceiverCounter port map (Clk => clk_TB, ce => ce_TB, clr => clr_TB,
+UUT: SerialReceiverCounter port map (clk => clk_TB, ce => ce_TB, clr => clr_TB,
 												O => O_TB);
 
 clk_gen : process 
