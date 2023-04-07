@@ -9,3 +9,6 @@ Implement and test it
 
 # SerialReceiver_TB
 Implement and test it
+
+# SerialReceiverCounter_TB
+Implement and test it
