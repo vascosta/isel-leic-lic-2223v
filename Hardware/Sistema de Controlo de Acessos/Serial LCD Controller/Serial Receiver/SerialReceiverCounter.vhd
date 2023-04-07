@@ -12,7 +12,7 @@ entity SerialReceiverCounter is
 
       -- Output ports
       O   	: out std_logic_vector(3 downto 0)
-    	);
+    );
 end SerialReceiverCounter;
 
 architecture behavioral of SerialReceiverCounter is
@@ -24,15 +24,15 @@ begin
 	process(clk)
    begin
 		if rising_edge(clk) then
-			if	(clr = '1')	then
-				count <= 0;
-         if (Ce = '1') then
+         if (Ce = '1' and clr = '0') then
             if (count = 15) then
 					count <= 0;
             else
                count <= count + 1;
             end if;
-         end if;
+			else if (clr = '1') then
+				count <= 0;
+			end if;
 			end if;
        end if;
 	end process;
