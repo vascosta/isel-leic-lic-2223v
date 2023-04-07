@@ -1,98 +1,83 @@
---LIBRARY ieee;
---USE ieee.std_logic_1164.all;
---
---entity SerialReceiver is 
---port
---	(
---		-- Input ports
---		SDX   	: in std_logic;
---		SCLK  	: in std_logic;
---		SS    	: in std_logic;
---		accept   : in std_logic;
---		reset    : in std_logic;
---		enable   : in std_logic;
---	
---		-- Output ports
---		D     	: out std_logic_vector(9 downto 0);
---		DXval 	: out std_logic;
---		busy  	: out std_logic
---	);
---end SERIAL_RECEIVER;
---
---architecture structural of SERIAL_RECEIVER is
---
---component SERIAL_CONTROL is 
---	port
---	(
---		-- Input ports
---		clk 		: in std_logic;
---		SS 		: in std_logic;
---		accept 	: in std_logic;
---		pFlag 	: in std_logic;
---		dFlag 	: in std_logic;
---		RXerror 	: in std_logic;
---		reset    : in std_logic;
---	
---		-- Output ports
---		wr			: out std_logic;
---		init		: out std_logic;
---		DXval		: out std_logic;
---		busy		: out std_logic
---	);
---end component;
---
---component SHIFT_REG is 
---	port
---	(
---		-- Input ports
---		clk   : in std_logic;
---		reset : in STD_LOGIC;
---		set   : in std_logic;
---		Sin	: 	in std_logic;
---		en    : in STD_LOGIC;
---		
---		-- Output ports
---		D 	   : out std_logic_vector(9 downto 0)
---	);
---end component;
---
---component COUNTER IS
---port
---	(
---		-- Input ports
---		CLK : in std_logic;
---		clr : in STD_LOGIC;
---		en  : in std_logic;
---	
---		-- Output ports
---		Q   : out std_logic_vector(3 downto 0)
---	);
---end component;
---
---component PARITY_CHECK is 
---port
---	(
---		-- Input ports
---		clk  : in std_logic;
---		data : in std_logic;
---		init : in std_logic;
---	
---		-- Output ports
---		err  : out std_logic
---	);
---end component;
---
---signal enableX, initX, errX, pFlagX, dFlagX: std_logic;
---signal QX: std_logic_vector (3 downto 0);
---
---begin
---
---
---
---U0: SERIAL_CONTROL port map (clk => SCLK, SS => SS, accept => accept, pFlag => pFlagX , dFlag => dFlagX , 
---										RXerror => errX, reset => reset, wr => enableX, init => initX, DXval => DXval, busy => busy);
---U1: SHIFT_REG      port map (clk => SCLK, reset => reset, set => '0', Sin => SDX, en => enableX, D => D);
---U2: COUNTER 		 port map (clk => SCLK , clr => initX, en => enable, Q => QX);
---U3: PARITY_CHECK   port map (clk => SCLK , data => SDX, init => initX, err => errX);
---
---end structural;
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+
+entity SerialReceiver is 
+port
+	(
+		-- Input ports
+		SDX   	: in std_logic;
+		SCLK  	: in std_logic;
+		SS    	: in std_logic;
+		accept   : in std_logic;
+		reset    : in std_logic;
+	
+		-- Output ports
+		D     	: out std_logic_vector(4 downto 0);
+		DXval 	: out std_logic
+	);
+end SerialReceiver;
+
+architecture structural of SerialReceiver is
+
+component SerialControl is 
+	port
+	(
+		-- Input ports
+		clk 		: in std_logic;
+		enRx 		: in std_logic;
+		accept 	: in std_logic;
+		eq5	 	: in std_logic;
+		reset    : in std_logic;
+	
+		-- Output ports
+		clr		: out std_logic;
+		wr			: out std_logic;
+		DXval		: out std_logic
+	);
+end component;
+
+component ShiftRegister is 
+	port
+	(
+		-- Input ports
+      data    : in  std_logic;
+      clk     : in  std_logic;
+      enable  : in  std_logic;
+		reset	  : in  std_logic;
+		
+		-- Output ports
+      D       : out std_logic_vector(4 downto 0)
+	);
+end component;
+
+component SerialReceiverCounter IS
+port 
+	(
+		-- Input ports
+		clk 	: in std_logic;
+		Ce  	: in std_logic;
+		clr	: in std_logic;
+
+      -- Output ports
+      O   	: out std_logic_vector(3 downto 0)
+    	);
+end component;
+
+
+signal clr_X, wr_X, eq5_X: std_logic;
+signal O_X : std_logic_vector(3 downto 0);
+
+begin
+
+eq5_X <= not O_X(3) and O_X(2) and not O_X(1) and O_X(0);
+
+U0: SerialControl 			port map (clk => SCLK, enRx => SS, eq5 => eq5_X, accept => accept, reset => reset, 
+													wr => wr_X, clr => clr_X, DXval => DXval);
+													
+U1: ShiftRegister      		port map (clk => SCLK, reset => reset, data => SDX, enable => wr_X, 
+												D => D);
+
+U2: SerialReceiverCounter	port map (clk => SCLK , clr => clr_X, Ce => SDX, 
+												O => O_X);
+
+end structural;
