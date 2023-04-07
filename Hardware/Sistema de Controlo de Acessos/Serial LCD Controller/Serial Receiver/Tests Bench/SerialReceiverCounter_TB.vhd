@@ -56,6 +56,7 @@ ce_TB <= '0';
 wait for MCLK_PERIOD;
 
 ce_TB <= '1';
+clr_TB <= '0';
 
 wait for MCLK_PERIOD;
 wait for MCLK_PERIOD;
