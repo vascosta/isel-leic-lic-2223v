@@ -7,7 +7,7 @@ port
 		-- Input ports
 		SDX   	: in std_logic;
 		SCLK  	: in std_logic;
-		SS    	: in std_logic;
+		nSS    	: in std_logic;
 		accept   : in std_logic;
 		reset    : in std_logic;
 	
@@ -71,7 +71,7 @@ begin
 
 eq5_X <= not O_X(3) and O_X(2) and not O_X(1) and O_X(0);
 
-U0: SerialControl 			port map (clk => SCLK, enRx => SS, eq5 => eq5_X, accept => accept, reset => reset, 
+U0: SerialControl 			port map (clk => SCLK, enRx => nSS, eq5 => eq5_X, accept => accept, reset => reset, 
 													wr => wr_X, clr => clr_X, DXval => DXval);
 													
 U1: ShiftRegister      		port map (clk => SCLK, reset => reset, data => SDX, enable => wr_X, 

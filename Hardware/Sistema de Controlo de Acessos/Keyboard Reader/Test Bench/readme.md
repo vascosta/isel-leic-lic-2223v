@@ -1,1 +1,1 @@
-Package for Keyboard Reader test bench
+Package for Keyboard Reader module test bench

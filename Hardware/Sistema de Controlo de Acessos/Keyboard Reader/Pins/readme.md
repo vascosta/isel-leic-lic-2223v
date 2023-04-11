@@ -1,1 +1,1 @@
-Package for Keyboard Reader pins
+Package for Keyboard Reader module pins
