@@ -1,1 +1,1 @@
-Package for Serial Receiver modules tests bench
+Package for Serial Receiver modules test benchs
