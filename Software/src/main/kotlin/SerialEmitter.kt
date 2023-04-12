@@ -21,15 +21,14 @@ object SerialEmitter {
 
     // Envia uma trama para o SerialReceiver identificado o destino em addr e os bits de dados em ‘data’.
     fun send(addr: Destination, data: Int) {
-        if (addr == Destination.DOOR) {
-            while (isBusy()) {
-                Thread.sleep(1000)
-            }
+        while (isBusy()) {
+            Thread.sleep(1000)
         }
         val destineMask = if (addr == Destination.LCD) nLCDsel_MASK else nSDCsel_MASK
         HAL.clearBits(destineMask)
         HAL.clearBits(SCLK_MASK)
-        for (i in 4 downTo 0) {
+        // 4 se enviarmos tambem o bit de RS
+        for (i in 3 downTo 0) {
             HAL.clearBits(SCLK_MASK)
             val sdx = (data shr i) and 1
             if (sdx == 1) HAL.setBits(SDX_MASK) else HAL.clearBits(SDX_MASK)
