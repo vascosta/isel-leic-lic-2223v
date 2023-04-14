@@ -3,9 +3,6 @@ import isel.leic.utils.Time
 // Envia tramas para os diferentes módulos Serial Receiver.
 object SerialEmitter {
 
-    // USB PORT
-    private const val clk:Long = 100
-
     enum class Destination {
         LCD,
         DOOR
@@ -31,14 +28,20 @@ object SerialEmitter {
             HAL.clearBits(SCLK_MASK)
             val sdx = (data shr i) and 1
             if (sdx == 1) HAL.setBits(SDX_MASK) else HAL.clearBits(SDX_MASK)
-            Time.sleep(clk)
             HAL.setBits(SCLK_MASK)
         }
-        Time.sleep(clk)
         HAL.setBits(destineMask)
         HAL.clearBits(SCLK_MASK)
     }
 
     // Retorna true se o canal série estiver ocupado
     private fun isBusy(): Boolean = HAL.isBit(BUSY_MASK)
+}
+
+fun main() {
+    SerialEmitter.init()
+    for (i in 0..31) {
+        SerialEmitter.send(SerialEmitter.Destination.LCD, i)
+        Thread.sleep(250)
+    }
 }

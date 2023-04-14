@@ -1,0 +1,8 @@
+set_location_assignment PIN_A12    -to  Reset
+
+set_location_assignment PIN_A8     -to 	D[0]
+set_location_assignment PIN_A9     -to 	D[1]
+set_location_assignment PIN_A10    -to 	D[2]
+set_location_assignment PIN_B10    -to 	D[3]
+set_location_assignment PIN_D13    -to 	D[4]
+set_location_assignment PIN_B11    -to 	DXval

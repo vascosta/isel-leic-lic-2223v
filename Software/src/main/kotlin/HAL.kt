@@ -38,3 +38,10 @@ object HAL {
         writeBits(mask,0x00)
     }
 }
+
+fun main() {
+    val mask = 0b00001111
+    HAL.init()
+    HAL.setBits(mask)
+    HAL.clearBits(mask)
+}
