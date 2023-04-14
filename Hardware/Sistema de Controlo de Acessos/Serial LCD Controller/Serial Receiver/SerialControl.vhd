@@ -20,7 +20,7 @@ end SerialControl;
 
 architecture behavioral of SerialControl is
 
-type STATE_TYPE is (STATE_WAITING, STATE_START, STATE_RECEIVING, STATE_END);
+type STATE_TYPE is (STATE_WAITING, STATE_RECEIVING, STATE_END, STATE_WAITING_ACCEPT);
 
 signal CurrentState, NextState: STATE_TYPE;
 
@@ -37,35 +37,37 @@ process (CurrentState, Eq5, Accept, EnRx)
 begin
 
 	case CurrentState is
-		when STATE_WAITING		=> if (EnRx = '1') then
-												if (EnRx = '0') then
-													NextState <= STATE_START;
+		when STATE_WAITING			=> if (EnRx = '0') then
+													NextState <= STATE_RECEIVING;
+												else
+													NextState <= STATE_WAITING;
+												end if;									
+											
+		when STATE_RECEIVING    	=> if (EnRx = '0') then
+													NextState <= STATE_RECEIVING;
+												elsif (Eq5 = '0') then
+													NextState <= STATE_WAITING;
+												else
+													NextState <= STATE_END;
+												end if;													
+													 
+      when STATE_END          	=> if (Accept = '0') then
+													NextState <= STATE_END;
+												else
+													NextState <= STATE_WAITING_ACCEPT;
+												end if;
+											
+		when STATE_WAITING_ACCEPT	=> if (Accept = '1') then
+													NextState <= STATE_WAITING_ACCEPT;
 												else
 													NextState <= STATE_WAITING;
 												end if;
-											else
-												NextState <= STATE_WAITING;
-											end if;
-											
-		when STATE_START			=> NextState <= STATE_RECEIVING;
-											
-		when STATE_RECEIVING    => if (Eq5 = '0') then
-												NextState <= STATE_RECEIVING;
-											else
-                                    NextState <= STATE_END;
-                                 end if;													
-													 
-      when STATE_END          => if (Accept = '0') then
-												NextState <= STATE_END;
-                                 else
-                                    NextState <= STATE_WAITING;
-											end if;
 	end case;
 	
 end process;
 
 -- GENERATE OUTPUTS
-Clr 	<= '1' when (CurrentState = STATE_START) 		else '0';
+Clr 	<= '1' when (CurrentState = STATE_WAITING) 	else '0';
 Wr   	<= '1' when (CurrentState = STATE_RECEIVING)	else '0';
 DXval	<= '1' when (CurrentState = STATE_END) 		else '0';
 

@@ -28,11 +28,11 @@ begin
 				D_X <= "00000";
 			end if;
 			if (Enable = '1') then
-				D_X(4) <= Data;
-				D_X(3) <= D_X(4);
-				D_X(2) <= D_X(3);
-				D_X(1) <= D_X(2);
-				D_X(0) <= D_X(1);
+				D_X(0) <= Data;
+				D_X(1) <= D_X(0);
+				D_X(2) <= D_X(1);
+				D_X(3) <= D_X(2);
+				D_X(4) <= D_X(3);
 			end if;
 		end if;
 	end process;

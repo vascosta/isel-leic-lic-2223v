@@ -91,4 +91,18 @@ object LCD {
 
 fun main() {
     LCD.init()
+    var count = 0
+    while (true) {
+        LCD.write("LCD COUNT: $count")
+        Thread.sleep(500)
+        LCD.clear()
+        count++
+        if (count == 10) {
+            LCD.cursor(1, 0)
+            LCD.write("WE REACHED 10!")
+            Thread.sleep(1000)
+            LCD.clear()
+            count = 0
+        }
+    }
 }

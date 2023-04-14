@@ -43,5 +43,13 @@ fun main() {
     val mask = 0b00001111
     HAL.init()
     HAL.setBits(mask)
+    Thread.sleep(2000)
     HAL.clearBits(mask)
+    Thread.sleep(2000)
+    println(HAL.isBit(mask))
+    Thread.sleep(2000)
+    HAL.writeBits(mask, 6)
+    Thread.sleep(2000)
+    val currentBits = HAL.readBits(mask)
+    println(currentBits)
 }
