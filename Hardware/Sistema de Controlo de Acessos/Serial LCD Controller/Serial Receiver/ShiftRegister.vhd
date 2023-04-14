@@ -5,10 +5,10 @@ entity ShiftRegister is
 	port 
 	(
 		-- Input ports
-      data    : in  std_logic;
-      clk     : in  std_logic;
-      enable  : in  std_logic;
-		reset	  : in  std_logic;
+      Data    : in  std_logic;
+      Clk     : in  std_logic;
+      Enable  : in  std_logic;
+		Reset	  : in  std_logic;
 		
 		-- Output ports
       D       : out std_logic_vector(4 downto 0)
@@ -21,14 +21,14 @@ signal D_X: std_logic_vector(4 downto 0);
 
 begin
 
-	process(clk)
+	process(Clk)
 	begin
-		if rising_edge(clk) then
-			if (reset = '1') then
+		if rising_edge(Clk) then
+			if (Reset = '1') then
 				D_X <= "00000";
 			end if;
-			if (enable = '1') then
-				D_X(4) <= data;
+			if (Enable = '1') then
+				D_X(4) <= Data;
 				D_X(3) <= D_X(4);
 				D_X(2) <= D_X(3);
 				D_X(1) <= D_X(2);

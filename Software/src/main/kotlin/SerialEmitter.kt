@@ -27,8 +27,7 @@ object SerialEmitter {
         val destineMask = if (addr == Destination.LCD) nLCDsel_MASK else nSDCsel_MASK
         HAL.clearBits(destineMask)
         HAL.clearBits(SCLK_MASK)
-        // 4 se enviarmos tambem o bit de RS
-        for (i in 3 downTo 0) {
+        for (i in 4 downTo 0) {
             HAL.clearBits(SCLK_MASK)
             val sdx = (data shr i) and 1
             if (sdx == 1) HAL.setBits(SDX_MASK) else HAL.clearBits(SDX_MASK)
@@ -41,5 +40,5 @@ object SerialEmitter {
     }
 
     // Retorna true se o canal série estiver ocupado
-    fun isBusy(): Boolean = HAL.isBit(BUSY_MASK)
+    private fun isBusy(): Boolean = HAL.isBit(BUSY_MASK)
 }

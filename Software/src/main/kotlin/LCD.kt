@@ -15,11 +15,8 @@ object LCD {
     }
     // Escreve um byte de comando/dados no LCD em série
     fun writeNibbleSerial(rs: Boolean, data: Int) {
-        //val rsValue = if (rs) 1 else 0
-        //SerialEmitter.send(SerialEmitter.Destination.LCD, data or rsValue shl 4)
-        //Se nao enviarmos o rs para o SerialEmitter
-        if (rs) HAL.setBits(LCD_RS_MASK) else HAL.clearBits(LCD_RS_MASK)
-        SerialEmitter.send(SerialEmitter.Destination.LCD, data)
+        val rsValue = if (rs) 1 else 0
+        SerialEmitter.send(SerialEmitter.Destination.LCD, data or rsValue shl 4)
         Thread.sleep(1)
         HAL.setBits(LCD_E_MASK)
         Thread.sleep(1)

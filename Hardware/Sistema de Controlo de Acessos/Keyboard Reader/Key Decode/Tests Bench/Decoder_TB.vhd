@@ -27,7 +27,8 @@ signal O_TB: std_logic_vector (2 downto 0);
 begin
 
 -- UNIT UNDER TEST
-UUT: Decoder port map (I => I_TB, O => O_TB);
+UUT: Decoder port map (I => I_TB, 
+							  O => O_TB);
 
 stimulus : process
 begin

@@ -10,15 +10,15 @@ component KeyDecode is
 	port
 	(
 		-- Input ports
-		Kack   		: in std_logic;
-		Clk    	 	: in std_logic;
-		reset     	: in std_logic;
+		Kack      		: in std_logic;
+		Clk    	 		: in std_logic;
+		Reset     		: in std_logic;
 		ButtonLine  	: in std_logic_vector(3 downto 0);
 
 		-- Output ports
-		Kval    	: out std_logic;
-		K		: out std_logic_vector(3 downto 0);
-		ButtonColumn	: out std_logic_vector(2 downto 0)
+		Kval      		: out std_logic;
+		K	    			: out std_logic_vector(3 downto 0);
+		ButtonColumn  	: out std_logic_vector(2 downto 0)
 	);
 end component;
 
@@ -26,15 +26,15 @@ end component;
 constant MClk_PERIOD 		: time := 20 ns;
 constant MClk_HALF_PERIOD	: time := MClk_PERIOD /2 ;
 
-signal Kack_TB, Clk_TB, reset_TB, Kval_TB	: std_logic;
-signal ButtonLine_TB, K_TB			: std_logic_vector (3 downto 0);
-signal ButtonColumn_TB				: std_logic_vector (2 downto 0);
+signal Kack_TB, Clk_TB, Reset_TB, Kval_TB		: std_logic;
+signal ButtonLine_TB, K_TB							: std_logic_vector (3 downto 0);
+signal ButtonColumn_TB								: std_logic_vector (2 downto 0);
 
 begin
 
  --UNIT UNDER TEST
-UUT: KeyDecode port map (Kack => Kack_TB, Clk => Clk_TB, reset => reset_TB, ButtonLine => ButtonLine_TB,
-			 Kval => Kval_TB,  K => K_TB, ButtonColumn => ButtonColumn_TB);
+UUT: KeyDecode port map (Kack => Kack_TB, Clk => Clk_TB, Reset => Reset_TB, ButtonLine => ButtonLine_TB,
+								 Kval => Kval_TB,  K => K_TB, ButtonColumn => ButtonColumn_TB);
 
 Clk_gen : process 
 
@@ -53,15 +53,15 @@ end process;
 stimulus : process
 
 begin
--- reset
+-- Reset
 
-reset_TB <= '1';
-Kack_TB  <= '1';
+Reset_TB <= '1';
+Kack_TB 	<= '1';
 
 wait for MClk_PERIOD;
 
 ButtonLine_TB <= "0000";
-reset_TB <= '0';
+Reset_TB <= '0';
 
 wait for MClk_PERIOD;
 

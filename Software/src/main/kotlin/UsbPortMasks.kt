@@ -1,9 +1,9 @@
 // INPUT PORT
 const val D3__0_MASK        = 0b00001111 // I0-I3
 const val DVAL_MASK         = 0b00010000 // I4
-//const val TXD_MASK        = 0b00100000 // I5
-//const val BUSY_MASK       = 0b01000000 // I6
-//const val M_MASK          = 0b10000000 // I7
+//const val _MASK        = 0b00100000 // I5
+//const val _MASK       = 0b01000000 // I6
+//const val _MASK          = 0b10000000 // I7
 
 // OUTPUT PORT
 const val LCD_DATA_MASK     = 0b00001111 // O0-O3

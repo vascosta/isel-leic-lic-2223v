@@ -10,11 +10,11 @@ component Counter is
 	port
 	(
 		-- Input ports
-		Clk	: in std_logic;
-		Ce	: in std_logic;
+		Clk : in std_logic;
+		Ce	 : in std_logic;
 		
 		-- Output ports
-		O 	: out std_logic_vector(3 downto 0)
+		O : out std_logic_vector(3 downto 0)
 	);
 end component;
 
@@ -23,13 +23,13 @@ constant MCLK_PERIOD 		: time := 20 ns;
 constant MCLK_HALF_PERIOD	: time := MCLK_PERIOD /2 ;
 
 signal Clk_tb, Ce_TB	: std_logic;
-signal O_TB		: std_logic_vector (3 downto 0);
+signal O_TB				: std_logic_vector (3 downto 0);
 
 begin
 
 -- UNIT UNDER TEST
 UUT: Counter port map (Clk => Clk_TB, Ce => Ce_TB,
-		       O => O_TB);
+							  O => O_TB);
 
 clk_gen : process 
 

@@ -1,18 +1,18 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity SerialReceiverCounter_TB is 
-end SerialReceiverCounter_TB;
+entity SerialReCeiverCounter_TB is 
+end SerialReCeiverCounter_TB;
 
-architecture behavioral of SerialReceiverCounter_TB is
+architecture behavioral of SerialReCeiverCounter_TB is
 
-component SerialReceiverCounter is 
+component SerialReCeiverCounter is 
 	port 
 	(
 		-- Input ports
-		clk 	: in std_logic;
-		ce  	: in std_logic;
-		clr	: in std_logic;
+		Clk 	: in std_logic;
+		Ce  	: in std_logic;
+		Clr	: in std_logic;
 
       -- Output ports
       O   	: out std_logic_vector(3 downto 0)
@@ -20,71 +20,71 @@ component SerialReceiverCounter is
 end component;
 
 --UUT signals
-constant MCLK_PERIOD 		: time := 20 ns;
-constant MCLK_HALF_PERIOD	: time := MCLK_PERIOD /2 ;
+constant MClk_PERIOD 		: time := 20 ns;
+constant MClk_HALF_PERIOD	: time := MClk_PERIOD /2 ;
 
-signal clk_TB, ce_TB, clr_TB	: std_logic;
+signal Clk_TB, Ce_TB, Clr_TB	: std_logic;
 signal O_TB							: std_logic_vector (3 downto 0);
 
 begin
 
 -- UNIT UNDER TEST
-UUT: SerialReceiverCounter port map (clk => clk_TB, ce => ce_TB, clr => clr_TB,
-												O => O_TB);
+UUT: SerialReCeiverCounter port map (Clk => Clk_TB, Ce => Ce_TB, Clr => Clr_TB,
+												 O => O_TB);
 
-clk_gen : process 
+Clk_gen : proCess 
 
 begin
 
-clk_TB <= '0';
+Clk_TB <= '0';
 
-wait for MCLK_HALF_PERIOD;
+wait for MClk_HALF_PERIOD;
 
-clk_TB <= '1';
+Clk_TB <= '1';
 
-wait for MCLK_HALF_PERIOD; 
+wait for MClk_HALF_PERIOD; 
 
-end process;
+end proCess;
 
-stimulus : process
+stimulus : proCess
 
 begin
 
 -- reset
-ce_TB <= '0';
+Ce_TB <= '0';
 
-wait for MCLK_PERIOD;
+wait for MClk_PERIOD;
 
-ce_TB <= '1';
-clr_TB <= '0';
+Ce_TB <= '1';
+Clr_TB <= '0';
 
-wait for MCLK_PERIOD;
-wait for MCLK_PERIOD;
-wait for MCLK_PERIOD;
-wait for MCLK_PERIOD;
-wait for MCLK_PERIOD;
-wait for MCLK_PERIOD;
-wait for MCLK_PERIOD;
-wait for MCLK_PERIOD;
+wait for MClk_PERIOD;
+wait for MClk_PERIOD;
+wait for MClk_PERIOD;
+wait for MClk_PERIOD;
+wait for MClk_PERIOD;
+wait for MClk_PERIOD;
+wait for MClk_PERIOD;
+wait for MClk_PERIOD;
 
-clr_TB <= '1';
+Clr_TB <= '1';
 
-wait for MCLK_PERIOD;
+wait for MClk_PERIOD;
 
-clr_TB <= '0';
+Clr_TB <= '0';
 
-wait for MCLK_PERIOD;
-wait for MCLK_PERIOD;
-wait for MCLK_PERIOD;
-wait for MCLK_PERIOD;
-wait for MCLK_PERIOD;
-wait for MCLK_PERIOD;
-wait for MCLK_PERIOD;
+wait for MClk_PERIOD;
+wait for MClk_PERIOD;
+wait for MClk_PERIOD;
+wait for MClk_PERIOD;
+wait for MClk_PERIOD;
+wait for MClk_PERIOD;
+wait for MClk_PERIOD;
 
-ce_TB <= '0';
+Ce_TB <= '0';
 
 wait;
 
-end process;
+end proCess;
 
 end behavioral;
