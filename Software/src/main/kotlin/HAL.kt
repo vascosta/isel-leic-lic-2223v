@@ -50,6 +50,7 @@ fun main() {
     Thread.sleep(2000)
     HAL.writeBits(mask, 6)
     Thread.sleep(2000)
+    // Change the value of the input port bits
     val currentBits = HAL.readBits(mask)
     println(currentBits)
 }

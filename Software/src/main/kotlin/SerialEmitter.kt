@@ -1,5 +1,3 @@
-import isel.leic.utils.Time
-
 // Envia tramas para os diferentes módulos Serial Receiver.
 object SerialEmitter {
 
@@ -21,8 +19,9 @@ object SerialEmitter {
         while (isBusy()) {
             Thread.sleep(1000)
         }
-        val destineMask = if (addr == Destination.LCD) nLCDsel_MASK else nSDCsel_MASK
-        HAL.clearBits(destineMask)
+        //val nSSMask = if (addr == Destination.LCD) nLCDsel_MASK else nSDCsel_MASK
+        val nSSMask = nLCDsel_MASK
+        HAL.clearBits(nSSMask)
         HAL.clearBits(SCLK_MASK)
         for (i in 4 downTo 0) {
             HAL.clearBits(SCLK_MASK)
@@ -30,7 +29,7 @@ object SerialEmitter {
             if (sdx == 1) HAL.setBits(SDX_MASK) else HAL.clearBits(SDX_MASK)
             HAL.setBits(SCLK_MASK)
         }
-        HAL.setBits(destineMask)
+        HAL.setBits(nSSMask)
         HAL.clearBits(SCLK_MASK)
     }
 
