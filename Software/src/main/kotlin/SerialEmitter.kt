@@ -40,7 +40,6 @@ object SerialEmitter {
 }
 
 fun main() {
-    // Teste para a placa com entidade topo SerialReceiver.vhd
     SerialEmitter.init()
     for (i in 0..31) {
         SerialEmitter.send(SerialEmitter.Destination.LCD, i)

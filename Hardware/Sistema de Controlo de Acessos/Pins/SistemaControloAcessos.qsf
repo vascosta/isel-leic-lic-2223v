@@ -1,14 +1,14 @@
 set_location_assignment PIN_W8     -to D[0]
 set_location_assignment PIN_V5     -to WrL
 
-set_location_assignment PIN_AA15  -to 	D[1]
-set_location_assignment PIN_W13   -to 	D[2]
-set_location_assignment PIN_AB13   -to 	D[3]
-set_location_assignment PIN_Y11    -to 	D[4]
--set_location_assignment PIN_W11    -to 	D[1]
--set_location_assignment PIN_AA10   -to 	D[2]
--set_location_assignment PIN_Y8     -to 	D[3]
--set_location_assignment PIN_Y7     -to 	D[4]
+-set_location_assignment PIN_AA15  -to 	D[1]
+-set_location_assignment PIN_W13   -to 	D[2]
+-set_location_assignment PIN_AB13   -to 	D[3]
+-set_location_assignment PIN_Y11    -to 	D[4]
+set_location_assignment PIN_W11    -to 	D[1]
+set_location_assignment PIN_AA10   -to 	D[2]
+set_location_assignment PIN_Y8     -to 	D[3]
+set_location_assignment PIN_Y7     -to 	D[4]
 
 -set_location_assignment PIN_W5     -to 	ButtonLine[0]
 -set_location_assignment PIN_AA14   -to 	ButtonLine[1]
