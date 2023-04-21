@@ -11,7 +11,8 @@ entity SistemaControloAcessos is
 
 		-- Output ports
 		D     			: out std_logic_vector(4 downto 0);
-		WrL				: out std_logic
+		DX     			: out std_logic_vector(4 downto 0);
+		WrL				: out std_logic;		WrLX				: out std_logic
 --		ButtonColumn  	: out std_logic_vector(2 downto 0);
 --		LCD_Rs  			: out std_logic;
 --		LCD_E  			: out std_logic;
@@ -67,12 +68,21 @@ end component;
 
 
 signal inputPort_X 		: std_logic_vector(7 downto 0);
-signal KX_X					: std_logic_vector(3 downto 0);
-signal Kack_X				: std_logic;
+signal D_X					: std_logic_vector(4 downto 0);
+signal WrL_X				: std_logic;
+
+--signal KX_X					: std_logic_vector(3 downto 0);
+--signal Kack_X				: std_logic;
 
 signal SDX_X, SClk_X, nLCDsel_X	: std_logic;
 
+
 begin
+
+D <= D_X;
+WrL <= WrL_X;
+DX <= D_X;
+WrLX <= WrL_X;
 
 --F1: UsbPort 			port map(inputPort(0) => KX_X(0), inputPort(1) => KX_X(1), inputPort(2) => KX_X(2), inputPort(3) => KX_X(3), 
 --										inputPort(4) => inputPort_X(4),
@@ -87,7 +97,7 @@ F1: UsbPort 				port map(inputPort => inputPort_X,
 											outputPort(0) => nLCDsel_X, outputPort(1) => SClk_X, outputPort(2) => SDX_X);
 
 F2: SerialLCDController	port map(Clk => Clk, SDX => SDX_X, SClk => SClk_X, nLCDsel => nLCDsel_X, Reset => Reset,
-											D => D, WrL => WrL);									
+											D => D_X, WrL => WrL_X);									
 
 end structural;
 

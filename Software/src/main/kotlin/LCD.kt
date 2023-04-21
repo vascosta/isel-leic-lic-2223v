@@ -42,7 +42,7 @@ object LCD {
 
     // Envia a sequência de iniciação para comunicação a 4 bits.
     fun init() {
-        HAL.init()
+        SerialEmitter.init()
 
         Thread.sleep(16)  // Esperar x ms
         writeNibble(false, 3)
@@ -58,6 +58,8 @@ object LCD {
         writeCMD(8)
 
         writeCMD(1)
+
+        writeCMD(6)
 
         writeCMD(15)
     }
@@ -87,7 +89,6 @@ object LCD {
 
 fun main() {
     LCD.init()
-    println("LCD initialized")
     var count = 0
     while (true) {
         LCD.write("LCD COUNT: $count")
