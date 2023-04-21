@@ -12,6 +12,6 @@ const val LCD_E_MASK        = 0b00100000 // O5
 const val nLCDsel_MASK      = 0b00000001 // O0
 const val SCLK_MASK         = 0b00000010 // O1
 const val SDX_MASK          = 0b00000100 // O2
-const val BUSY_MASK          = 0b01000000 // O3
+const val BUSY_MASK         = 0b01000000 // O3
 // const val nSDCsel_MASK      = 0b01000000 // O6
 const val ACK_MASK          = 0b10000000 // O7

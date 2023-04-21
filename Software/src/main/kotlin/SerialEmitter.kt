@@ -16,11 +16,13 @@ object SerialEmitter {
 
     // Envia uma trama para o SerialReceiver identificado o destino em addr e os bits de dados em ‘data’.
     fun send(addr: Destination, data: Int) {
-        while (isBusy()) {
-            Thread.sleep(1000)
-        }
-        //val nSSMask = if (addr == Destination.LCD) nLCDsel_MASK else nSDCsel_MASK
-        val nSSMask = nLCDsel_MASK
+        var nSSMask = nLCDsel_MASK
+        /*if (addr == Destination.DOOR) {
+            nSSMask = nSDCsel_MASK
+            while (isBusy()) {
+                Thread.sleep(1000)
+            }
+        }*/
         HAL.clearBits(nSSMask)
         HAL.clearBits(SCLK_MASK)
         for (i in 4 downTo 0) {
@@ -38,6 +40,7 @@ object SerialEmitter {
 }
 
 fun main() {
+    // Teste para a placa com entidade topo SerialReceiver.vhd
     SerialEmitter.init()
     for (i in 0..31) {
         SerialEmitter.send(SerialEmitter.Destination.LCD, i)

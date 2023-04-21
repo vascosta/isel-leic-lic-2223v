@@ -2,7 +2,7 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 
 entity SerialLCDController is 
-port
+	port
 	(
 		-- Input ports
 		nLCDsel	: in std_logic;
@@ -23,6 +23,7 @@ component SerialReceiver is
 	port
 	(
 		-- Input ports
+		Clk		: in std_logic;
 		SDX   	: in std_logic;
 		SClk  	: in std_logic;
 		nSS    	: in std_logic;
@@ -51,16 +52,28 @@ component LCDDispatcher is
 	);
 end component;
 
+component ClkDiv is 
+	generic (div: natural := 50000000);
 
-signal Done_X, Dxval_X, Eq5_X, Ce_X	: std_logic;
-signal Din_X 								: std_logic_vector(4 downto 0);
+	port 
+	( 
+		Clk_in	: in std_logic;
+	
+		Clk_out	: out std_logic
+	);
+end component;
+
+signal Done_X, Dxval_X, Clk_X	: std_logic;
+signal Din_X 						: std_logic_vector(4 downto 0);
 
 begin
 
-U0: SerialReceiver 			port map (SDX => SDX, SClk => SClk, nSS => nLCDsel, Accept => Done_X, Reset => Reset, 
+U0: SerialReceiver 			port map (Clk => Clk, SDX => SDX, SClk => SClk, nSS => nLCDsel, Accept => Done_X, Reset => Reset, 
 												 D => Din_X, DXval => Dxval_X);
 													
-U1: LCDDispatcher      		port map (Clk => Clk, Reset => Reset, Dxval => Dxval_X, Din => Din_X, 
+U1: LCDDispatcher      		port map (Clk => Clk_X, Reset => Reset, Dxval => Dxval_X, Din => Din_X, 
 												 WrL => WrL, Dout => D, Done => Done_X);
+												 
+U2: ClkDiv  	generic map(1000) port map (Clk_in => Clk, Clk_out => Clk_X);												 
 
 end structural;

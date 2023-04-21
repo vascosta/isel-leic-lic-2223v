@@ -5,6 +5,7 @@ entity SerialReceiver is
 	port
 	(
 		-- Input ports
+		Clk		: in std_logic;
 		SDX   	: in std_logic;
 		SClk  	: in std_logic;
 		nSS    	: in std_logic;
@@ -72,7 +73,7 @@ begin
 Eq5_X <= not O_X(3) and O_X(2) and not O_X(1) and O_X(0);
 Ce_X <= not nSS;
 
-U0: SerialControl 			port map (Clk => SClk, EnRx => nSS, Eq5 => Eq5_X, Accept => Accept, Reset => Reset, 
+U0: SerialControl 			port map (Clk => Clk, EnRx => nSS, Eq5 => Eq5_X, Accept => Accept, Reset => Reset, 
 												 Wr => Wr_X, Clr => Clr_X, DXval => DXval);
 													
 U1: ShiftRegister      		port map (Clk => SClk, Reset => Reset, Data => SDX, Enable => Wr_X, 

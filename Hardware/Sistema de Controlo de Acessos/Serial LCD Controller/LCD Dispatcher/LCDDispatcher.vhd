@@ -54,7 +54,7 @@ begin
 end process;
 
 -- GENERATE OUTPUTS
-WrL 	<= '1' when (CurrentState = STATE_WAITING) 			else '0';
+WrL 	<= '1' when (CurrentState = STATE_TRAMA_RECEBIDA) 	else '0';
 Dout  <= Din;
 Done	<= '1' when (CurrentState = STATE_DONE) 				else '0';
 

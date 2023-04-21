@@ -5,13 +5,13 @@ entity SistemaControloAcessos is
 	port
 	(
 		-- Input ports
---		Clk    	 		: in std_logic;
+		Clk    	 		: in std_logic;
 		Reset     		: in std_logic;
 --		ButtonLine  	: in std_logic_vector(3 downto 0);
 
 		-- Output ports
-		D     	: out std_logic_vector(4 downto 0);
-		DXval 	: out std_logic
+		D     			: out std_logic_vector(4 downto 0);
+		WrL				: out std_logic
 --		ButtonColumn  	: out std_logic_vector(2 downto 0);
 --		LCD_Rs  			: out std_logic;
 --		LCD_E  			: out std_logic;
@@ -37,19 +37,19 @@ architecture structural of SistemaControloAcessos is
 --);
 --end component;
 
-component SerialReceiver is 
-port
+component SerialLCDController is 
+	port
 	(
 		-- Input ports
-		SDX   	: in std_logic;
+		nLCDsel	: in std_logic;
 		SClk  	: in std_logic;
-		nSS    	: in std_logic;
-		Accept   : in std_logic;
-		Reset    : in std_logic;
+		Clk		: in std_logic;
+		SDX    	: in std_logic;
+		Reset  	: in std_logic;
 	
 		-- Output ports
 		D     	: out std_logic_vector(4 downto 0);
-		DXval 	: out std_logic
+		WrL	 	: out std_logic
 	);
 end component;
 
@@ -64,9 +64,11 @@ component UsbPort is
 	);
 end component;
 
-signal inputPort_X 	: std_logic_vector(7 downto 0);
-signal KX_X				: std_logic_vector(3 downto 0);
-signal Kack_X 			: std_logic;
+
+
+signal inputPort_X 		: std_logic_vector(7 downto 0);
+signal KX_X					: std_logic_vector(3 downto 0);
+signal Kack_X				: std_logic;
 
 signal SDX_X, SClk_X, nLCDsel_X	: std_logic;
 
@@ -81,11 +83,11 @@ begin
 --										Kval => inputPort_X(4), K(0) => KX_X(0), K(1) => KX_X(1), K(2) => KX_X(2),
 --										K(3) => KX_X(3),  ButtonColumn => ButtonColumn);
 
-F1: UsbPort 			port map(inputPort => inputPort_X,
-										outputPort(0) => nLCDsel_X, outputPort(1) => SClk_X, outputPort(2) => SDX_X);
+F1: UsbPort 				port map(inputPort => inputPort_X,
+											outputPort(0) => nLCDsel_X, outputPort(1) => SClk_X, outputPort(2) => SDX_X);
 
-F2: SerialReceiver	port map(SDX => SDX_X, SClk => SClk_X, nSS => nLCDsel_X, Accept => '1', Reset => Reset,
-										D => D, DXval => DXval);
+F2: SerialLCDController	port map(Clk => Clk, SDX => SDX_X, SClk => SClk_X, nLCDsel => nLCDsel_X, Reset => Reset,
+											D => D, WrL => WrL);									
 
 end structural;
 
