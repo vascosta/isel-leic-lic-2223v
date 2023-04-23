@@ -6,14 +6,14 @@ entity KeyboardReader is
 	(
 		-- Input ports
 		Kack      		: in std_logic;
-		Clk    	 			: in std_logic;
+		Clk    	 		: in std_logic;
 		Reset     		: in std_logic;
 		ButtonLine  	: in std_logic_vector(3 downto 0);
 
 		-- Output ports
 		Kval      		: out std_logic;
-		K	    				: out std_logic_vector(3 downto 0);
-		ButtonColumn	: out std_logic_vector(2 downto 0)
+		K	    			: out std_logic_vector(3 downto 0);
+		ButtonColumn  	: out std_logic_vector(2 downto 0)
 	);
 end KeyboardReader;
 
@@ -24,14 +24,14 @@ component KeyDecode is
 	(
 		-- Input ports
 		Kack      		: in std_logic;
-		Clk    	 			: in std_logic;
+		Clk    	 		: in std_logic;
 		Reset     		: in std_logic;
 		ButtonLine  	: in std_logic_vector(3 downto 0);
 
 		-- Output ports
 		Kval      		: out std_logic;
-		K	    				: out std_logic_vector(3 downto 0);
-		ButtonColumn  : out std_logic_vector(2 downto 0)
+		K	    			: out std_logic_vector(3 downto 0);
+		ButtonColumn  	: out std_logic_vector(2 downto 0)
 	);
 end component;
 
@@ -50,10 +50,10 @@ signal Clk_X : std_logic;
 
 begin
 
-F1: KeyDecode 										port map (Kack => Kack, Clk => Clk_X, Reset => Reset, ButtonLine => ButtonLine, 
-												 									  Kval => Kval, K => K, ButtonColumn => ButtonColumn);
+F1: KeyDecode 							port map (Kack => Kack, Clk => Clk, Reset => Reset, ButtonLine => ButtonLine, 
+														 Kval => Kval, K => K, ButtonColumn => ButtonColumn);
 									
-F3: ClkDiv  		generic map(1000) port map (Clk_in => Clk, Clk_out => Clk_X);						
+--F3: ClkDiv  	generic map(1000) port map (Clk_in => Clk, Clk_out => Clk_X);						
 
 end structural;
 

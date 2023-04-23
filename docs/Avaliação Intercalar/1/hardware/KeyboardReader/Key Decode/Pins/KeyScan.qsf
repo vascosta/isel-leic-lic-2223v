@@ -14,4 +14,4 @@ set_location_assignment PIN_A10    -to 	K[2]
 set_location_assignment PIN_B10    -to 	K[3]
 
 set_location_assignment PIN_B11    -to 	Kpress
-set_location_assignment PIN_C10    -to  	Kscan
+set_location_assignment PIN_C10    -to  Kscan

@@ -6,7 +6,7 @@ set_location_assignment PIN_AB11   -to	ButtonColumn[0]
 set_location_assignment PIN_AB10   -to	ButtonColumn[1]
 set_location_assignment PIN_AA9    -to	ButtonColumn[2]
 
-set_location_assignment PIN_P11    -to  Clk
+set_location_assignment PIN_P11    -to  CLK
 
 set_location_assignment PIN_A8     -to 	K[0]
 set_location_assignment PIN_A9     -to 	K[1]

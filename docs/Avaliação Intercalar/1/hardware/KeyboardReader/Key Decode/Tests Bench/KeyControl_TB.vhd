@@ -10,14 +10,14 @@ component KeyControl is
 	port
 	(
 		-- Input ports
-     		Kpress	: in std_logic;
-      		Kack	: in std_logic;
-      		Clk	: in std_logic;
-      		Reset  	: in std_logic;
+      Kpress		: in std_logic;
+      Kack      : in std_logic;
+      Clk       : in std_logic;
+      Reset    	: in std_logic;
 
-      		-- Output ports
-      		Kscan   : out std_logic;
-      		Kval    : out std_logic
+      -- Output ports
+      Kscan     : out std_logic;
+      Kval      : out std_logic
 
 	);
 end component;
@@ -32,7 +32,7 @@ begin
 
 -- UNIT UNDER TEST
 UUT: KeyControl port map (Kpress => Kpress_TB, Kack => Kack_TB, Clk => Clk_TB, Reset => Reset_TB, 
-			  Kscan => Ksacn_TB, Kval => Kval_TB);
+								  Kscan => Ksacn_TB, Kval => Kval_TB);
 
 Clk_gen : process 
 

@@ -9,14 +9,14 @@ entity Counter is
 		Clk : in std_logic;
 		Ce  : in std_logic;
 
-    		-- Output ports
-    		O   : out std_logic_vector(3 downto 0)
-	);
+      -- Output ports
+      O   : out std_logic_vector(3 downto 0)
+    	);
 end Counter;
 
 architecture behavioral of Counter is
 
-signal count: integer := 0;
+signal Count: integer := 0;
 	 
 begin
 
@@ -24,14 +24,14 @@ begin
     begin
         if rising_edge(Clk) then
             if (Ce = '1') then
-                if (count = 15) then
-                    count <= 0;
+                if (Count = 15) then
+                    Count <= 0;
                 else
-                    count <= count + 1;
+                    Count <= Count + 1;
                 end if;
             end if;
         end if;
     end process;
 
-    O <= std_logic_vector(to_signed(count, O'length));
+    O <= std_logic_vector(to_signed(Count, O'length));
 end architecture behavioral;

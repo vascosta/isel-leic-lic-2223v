@@ -10,30 +10,30 @@ component KeyScan is
 	port
 	(  
 		-- Input ports
-      		Kscan  		: in std_logic;
-		Clk	  	: in std_logic;
-		ButtonLine	: in std_logic_vector(3 downto 0);
+      Kscan    		: in std_logic;
+		Clk	  		: in std_logic;
+		ButtonLine		: in std_logic_vector(3 downto 0);
 
 		-- Output ports
-      		K      		: out std_logic_vector(3 downto 0);
-      		Kpress   	: out std_logic;
+      K        		: out std_logic_vector(3 downto 0);
+      Kpress   		: out std_logic;
 		ButtonColumn	: out std_logic_vector(2 downto 0)
 	);
 end component;
 
 --UUT signals
-constant MCLK_PERIOD : time := 20 ns;
-constant MCLK_HALF_PERIOD : time := MCLK_PERIOD /2 ;
+constant MCLK_PERIOD 		: time := 20 ns;
+constant MCLK_HALF_PERIOD	: time := MCLK_PERIOD /2 ;
 
 signal Kscan_TB, Clk_TB, Kpress_TB	: std_logic;
-signal ButtonLine_TB, K_TB 		: std_logic_vector (3 downto 0);
-signal ButtonColumn_TB 			: std_logic_vector (2 downto 0);
+signal ButtonLine_TB, K_TB 			: std_logic_vector (3 downto 0);
+signal ButtonColumn_TB 					: std_logic_vector (2 downto 0);
 
 begin
 
 -- UNIT UNDER TEST
 UUT: KeyScan port map (Kscan => Kscan_TB, Clk => Clk_TB, ButtonLine => ButtonLine_TB, 
-		       K => K_TB, Kpress => Kpress_TB, ButtonColumn => ButtonColumn_TB);
+							  K => K_TB, Kpress => Kpress_TB, ButtonColumn => ButtonColumn_TB);
 
 clk_gen : process 
 
@@ -58,7 +58,7 @@ Kscan_TB <= '0';
 
 wait for MCLK_PERIOD;
 
-Kscan_TB 	<= '1';
+Kscan_TB 		<= '1';
 ButtonLine_TB	<= "0000";
 
 wait for MCLK_PERIOD;

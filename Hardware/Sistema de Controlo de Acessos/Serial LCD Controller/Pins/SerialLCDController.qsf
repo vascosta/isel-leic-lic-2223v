@@ -1,8 +1,7 @@
 set_location_assignment PIN_N5     -to  Clk
-set_location_assignment PIN_P11    -to  SClk
 
 set_location_assignment PIN_C10    -to  SDX
--set_location_assignment PIN_C11    -to  SClk
+set_location_assignment PIN_C11    -to  SClk
 set_location_assignment PIN_D12    -to  nLCDsel
 set_location_assignment PIN_A12    -to  Reset
 
