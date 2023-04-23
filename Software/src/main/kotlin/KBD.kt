@@ -47,8 +47,5 @@ fun main() {
         if (key != 0.toChar()) {
             println("Key pressed: $key")
         }
-        else {
-            println("No key pressed")
-        }
     }
 }

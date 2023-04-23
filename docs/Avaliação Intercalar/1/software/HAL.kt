@@ -38,3 +38,19 @@ object HAL {
         writeBits(mask,0x00)
     }
 }
+
+fun main() {
+    val mask = 0b00001111
+    HAL.init()
+    HAL.setBits(mask)
+    Thread.sleep(2000)
+    HAL.clearBits(mask)
+    Thread.sleep(2000)
+    println(HAL.isBit(mask))
+    Thread.sleep(2000)
+    HAL.writeBits(mask, 6)
+    Thread.sleep(2000)
+    // Change the value of the input port bits
+    val currentBits = HAL.readBits(mask)
+    println(currentBits)
+}

@@ -14,13 +14,14 @@ object LCD {
         HAL.clearBits(LCD_E_MASK)
     }
     // Escreve um byte de comando/dados no LCD em série
-    fun writeNibbleSerial(rs: Boolean, data: Int) {
-
+    private fun writeNibbleSerial(rs: Boolean, data: Int) {
+        val rsValue = if (rs) 1 else 0
+        SerialEmitter.send(SerialEmitter.Destination.LCD, data shl 1 or rsValue)
     }
 
     // Escreve um nibble de comando/dados no LCD
     private fun writeNibble(rs: Boolean, data: Int) {
-        writeNibbleParallel(rs, data)
+        writeNibbleSerial(rs, data)
     }
 
     // Escreve um byte de comando/dados no LCD
@@ -41,7 +42,7 @@ object LCD {
 
     // Envia a sequência de iniciação para comunicação a 4 bits.
     fun init() {
-        HAL.init()
+        SerialEmitter.init()
 
         Thread.sleep(16)  // Esperar x ms
         writeNibble(false, 3)
@@ -58,11 +59,13 @@ object LCD {
 
         writeCMD(1)
 
+        writeCMD(6)
+
         writeCMD(15)
     }
 
     // Escreve um caráter na posição corrente.
-    private fun write(c: Char) {
+    fun write(c: Char) {
         writeDATA(c.code)
     }
 
@@ -81,5 +84,23 @@ object LCD {
     fun clear() {
         writeCMD(1)
         cursor(0,0)
+    }
+}
+
+fun main() {
+    LCD.init()
+    var count = 0
+    while (true) {
+        LCD.write("LCD COUNT: $count")
+        Thread.sleep(500)
+        LCD.clear()
+        count++
+        if (count == 10) {
+            LCD.cursor(1, 0)
+            LCD.write("WE REACHED 10!")
+            Thread.sleep(1000)
+            LCD.clear()
+            count = 0
+        }
     }
 }

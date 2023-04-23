@@ -1,10 +1,5 @@
-import isel.leic.utils.Time
-
 // Envia tramas para os diferentes módulos Serial Receiver.
 object SerialEmitter {
-
-    // USB PORT
-    private const val clk:Long = 100
 
     enum class Destination {
         LCD,
@@ -21,26 +16,37 @@ object SerialEmitter {
 
     // Envia uma trama para o SerialReceiver identificado o destino em addr e os bits de dados em ‘data’.
     fun send(addr: Destination, data: Int) {
-        if (addr == Destination.DOOR) {
+        Thread.sleep(500)
+        var nSSMask = nLCDsel_MASK
+        /*if (addr == Destination.DOOR) {
+            nSSMask = nSDCsel_MASK
             while (isBusy()) {
                 Thread.sleep(1000)
             }
-        }
-        val destineMask = if (addr == Destination.LCD) nLCDsel_MASK else nSDCsel_MASK
-        HAL.clearBits(destineMask)
-        HAL.clearBits(SCLK_MASK)
+        }*/
+        HAL.clearBits(nSSMask)
         for (i in 4 downTo 0) {
+            Thread.sleep(100)
             HAL.clearBits(SCLK_MASK)
             val sdx = (data shr i) and 1
             if (sdx == 1) HAL.setBits(SDX_MASK) else HAL.clearBits(SDX_MASK)
-            Time.sleep(clk)
             HAL.setBits(SCLK_MASK)
+            Thread.sleep(100)
         }
-        Time.sleep(clk)
-        HAL.setBits(destineMask)
+        Thread.sleep(100)
+        HAL.setBits(nSSMask)
         HAL.clearBits(SCLK_MASK)
+        Thread.sleep(100)
     }
 
     // Retorna true se o canal série estiver ocupado
-    fun isBusy(): Boolean = HAL.isBit(BUSY_MASK)
+    private fun isBusy(): Boolean = HAL.isBit(BUSY_MASK)
+}
+
+fun main() {
+    SerialEmitter.init()
+    for (i in 0..31) {
+        SerialEmitter.send(SerialEmitter.Destination.LCD, i)
+        Thread.sleep(250)
+    }
 }

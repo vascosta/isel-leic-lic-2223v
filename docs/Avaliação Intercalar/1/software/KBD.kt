@@ -39,3 +39,13 @@ object KBD { // Ler teclas. Métodos retornam ‘0’..’9’,’#’,’*’ o
         return key
     }
 }
+
+fun main() {
+    KBD.init()
+    while (true) {
+        val key = KBD.waitKey(5000)
+        if (key != 0.toChar()) {
+            println("Key pressed: $key")
+        }
+    }
+}
