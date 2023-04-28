@@ -21,7 +21,7 @@ signal D_X: std_logic_vector(4 downto 0);
 
 begin
 
-	process(Clk)
+	process(Clk, Reset, Enable)
 	begin
 		if rising_edge(Clk) then
 			if (Reset = '1') then

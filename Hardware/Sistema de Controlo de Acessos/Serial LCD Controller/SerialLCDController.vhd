@@ -72,9 +72,9 @@ begin
 U0: SerialReceiver 			port map (Clk => Clk, SDX => SDX, SClk => SClk, nSS => nLCDsel, Accept => Done_X, Reset => Reset, 
 												 D => Din_X, DXval => Dxval_X, Busy => Busy_X);
 													
-U1: LCDDispatcher      		port map (Clk => Clk_X, Reset => Reset, Dxval => Dxval_X, Din => Din_X, 
+U1: LCDDispatcher      		port map (Clk => Clk, Reset => Reset, Dxval => Dxval_X, Din => Din_X, 
 												 WrL => WrL, Dout => D, Done => Done_X);
 												 
-U2: ClkDiv  	generic map(50) port map (Clk_in => Clk, Clk_out => Clk_X);												 
+--U2: ClkDiv  	generic map(25000000) port map (Clk_in => Clk, Clk_out => Clk_X);												 
 
 end structural;

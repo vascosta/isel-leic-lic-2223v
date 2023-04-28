@@ -1,13 +1,9 @@
 # KeyboardReader_TB
 Refactor it
 
-# SerialDoorReceiver
+# SerialReceiver_TB for DOOR
 
-# SerialDoorReceiver_TB
-
-# SerialDoorControl
-
-# SerialDoorControl_TB
+# SerialDoorControl_TB  for DOOR
 
 # SerialDoorController
 

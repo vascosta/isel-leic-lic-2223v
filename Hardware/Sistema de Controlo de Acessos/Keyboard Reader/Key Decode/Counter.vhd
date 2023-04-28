@@ -20,7 +20,7 @@ signal Count: integer := 0;
 	 
 begin
 
-    process(Clk)
+    process(Clk, Ce)
     begin
         if rising_edge(Clk) then
             if (Ce = '1') then

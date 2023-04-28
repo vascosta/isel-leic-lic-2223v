@@ -34,7 +34,8 @@ component SerialControl is
 		-- Output ports
 		Clr		: out std_logic;
 		Wr			: out std_logic;
-		DXval		: out std_logic
+		DXval		: out std_logic;
+		Busy		: out std_logic
 	);
 end component;
 

@@ -89,6 +89,7 @@ object LCD {
 
 fun main() {
     LCD.init()
+    println(" LCD INITIALIZED ")
     var count = 0
     while (true) {
         LCD.write("LCD COUNT: $count")
