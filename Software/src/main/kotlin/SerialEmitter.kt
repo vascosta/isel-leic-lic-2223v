@@ -28,13 +28,17 @@ object SerialEmitter {
         for (i in 4 downTo 0) {
             Thread.sleep(100)
             HAL.clearBits(SCLK_MASK)
+            Thread.sleep(100)
             val sdx = (data shr i) and 1
+            Thread.sleep(100)
             if (sdx == 1) HAL.setBits(SDX_MASK) else HAL.clearBits(SDX_MASK)
+            Thread.sleep(100)
             HAL.setBits(SCLK_MASK)
             Thread.sleep(100)
         }
         Thread.sleep(100)
         HAL.setBits(nSSMask)
+        Thread.sleep(100)
         HAL.clearBits(SCLK_MASK)
         Thread.sleep(100)
     }

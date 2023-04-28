@@ -14,7 +14,8 @@ entity SerialReceiver is
 	
 		-- Output ports
 		D     	: out std_logic_vector(4 downto 0);
-		DXval 	: out std_logic
+		DXval 	: out std_logic;
+		Busy		: out std_logic
 	);
 end SerialReceiver;
 
@@ -74,7 +75,7 @@ Eq5_X <= not O_X(3) and O_X(2) and not O_X(1) and O_X(0);
 Ce_X <= not nSS;
 
 U0: SerialControl 			port map (Clk => Clk, EnRx => nSS, Eq5 => Eq5_X, Accept => Accept, Reset => Reset, 
-												 Wr => Wr_X, Clr => Clr_X, DXval => DXval);
+												 Wr => Wr_X, Clr => Clr_X, DXval => DXval, Busy => Busy);
 													
 U1: ShiftRegister      		port map (Clk => SClk, Reset => Reset, Data => SDX, Enable => Wr_X, 
 												 D => D);

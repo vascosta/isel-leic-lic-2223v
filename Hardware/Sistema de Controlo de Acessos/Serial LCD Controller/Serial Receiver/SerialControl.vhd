@@ -14,11 +14,12 @@ entity SerialControl is
 		-- Output ports
 		Clr		: out std_logic;
 		Wr			: out std_logic;
-		DXval		: out std_logic
+		DXval		: out std_logic;
+		Busy		: out std_logic
 	);
 end SerialControl;
 
-architecture behavioral of SerialDoorControl is
+architecture behavioral of SerialControl is
 
 type STATE_TYPE is (STATE_WAITING, STATE_RECEIVING, STATE_END, STATE_WAITING_ACCEPT);
 
@@ -67,8 +68,9 @@ begin
 end process;
 
 -- GENERATE OUTPUTS
-Clr 	<= '1' when (CurrentState = STATE_WAITING) 	else '0';
-Wr   	<= '1' when (CurrentState = STATE_RECEIVING)	else '0';
-DXval	<= '1' when (CurrentState = STATE_END) 		else '0';
+Clr 	<= '1' when (CurrentState = STATE_WAITING) 				else '0';
+Wr   	<= '1' when (CurrentState = STATE_RECEIVING)				else '0';
+DXval	<= '1' when (CurrentState = STATE_END) 					else '0';
+Busy	<= '1' when (CurrentState = STATE_WAITING_ACCEPT) 		else '0';
 
 end behavioral;
