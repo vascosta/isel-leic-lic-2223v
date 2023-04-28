@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity SerialControl is 
+entity SerialDoorControl is 
 	port
 	(
 		-- Input ports
@@ -14,9 +14,10 @@ entity SerialControl is
 		-- Output ports
 		clr		: out std_logic;
 		wr			: out std_logic;
-		DXval		: out std_logic
+		DXval		: out std_logic;
+		Busy		: out std_logic
 	);
-end SerialControl;
+end SerialDoorControl;
 
 architecture behavioral of SerialControl is
 

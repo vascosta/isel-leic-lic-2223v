@@ -1,7 +1,7 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 
-entity SerialReceiver is 
+entity SerialDoorReceiver is 
 port
 	(
 		-- Input ports
@@ -13,13 +13,14 @@ port
 	
 		-- Output ports
 		D     	: out std_logic_vector(4 downto 0);
-		DXval 	: out std_logic
+		DXval 	: out std_logic;
+		Busy		: out std_logic
 	);
-end SerialReceiver;
+end SerialDoorReceiver;
 
 architecture structural of SerialReceiver is
 
-component SerialControl is 
+component SerialDoorControl is 
 	port
 	(
 		-- Input ports
@@ -32,7 +33,8 @@ component SerialControl is
 		-- Output ports
 		clr		: out std_logic;
 		wr			: out std_logic;
-		DXval		: out std_logic
+		DXval		: out std_logic;
+		Busy		: out std_logic
 	);
 end component;
 
@@ -71,8 +73,8 @@ begin
 
 eq5_X <= not O_X(3) and O_X(2) and not O_X(1) and O_X(0);
 
-U0: SerialControl 			port map (clk => SCLK, enRx => nSS, eq5 => eq5_X, accept => accept, reset => reset, 
-													wr => wr_X, clr => clr_X, DXval => DXval);
+U0: SerialDoorControl 		port map (clk => SCLK, enRx => nSS, eq5 => eq5_X, accept => accept, reset => reset, 
+													wr => wr_X, clr => clr_X, DXval => DXval, Busy => Busy);
 													
 U1: ShiftRegister      		port map (clk => SCLK, reset => reset, data => SDX, enable => wr_X, 
 												D => D);
