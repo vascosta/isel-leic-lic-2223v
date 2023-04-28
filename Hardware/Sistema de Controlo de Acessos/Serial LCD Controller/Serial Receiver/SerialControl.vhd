@@ -18,7 +18,7 @@ entity SerialControl is
 	);
 end SerialControl;
 
-architecture behavioral of SerialControl is
+architecture behavioral of SerialDoorControl is
 
 type STATE_TYPE is (STATE_WAITING, STATE_RECEIVING, STATE_END, STATE_WAITING_ACCEPT);
 
