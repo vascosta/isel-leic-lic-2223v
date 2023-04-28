@@ -1,7 +1,7 @@
 // Envia tramas para os diferentes módulos Serial Receiver.
 object SerialEmitter {
 
-    private val clk: Long = 3000
+    private val clk: Long = 100
 
     enum class Destination {
         LCD,
@@ -33,8 +33,8 @@ object SerialEmitter {
             if (sdx == 1) HAL.setBits(SDX_MASK) else HAL.clearBits(SDX_MASK)
             HAL.setBits(SCLK_MASK)
         }
-        HAL.setBits(nSSMask)
         HAL.clearBits(SCLK_MASK)
+        HAL.setBits(nSSMask)
         Thread.sleep(clk)
     }
 

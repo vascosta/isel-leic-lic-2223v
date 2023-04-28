@@ -21,11 +21,4 @@ set_location_assignment PIN_Y7     -to 	D[4]
 set_location_assignment PIN_C10    	-to   Reset
 set_location_assignment PIN_P11     -to  	Clk
 
-set_location_assignment PIN_A8    	-to 	DX[0]
-set_location_assignment PIN_A9    	-to 	DX[1]
-set_location_assignment PIN_A10   	-to 	DX[2]
-set_location_assignment PIN_B10     -to 	DX[3]
-set_location_assignment PIN_D13     -to 	DX[4]
-set_location_assignment PIN_B11     -to 	WrLX
-
 

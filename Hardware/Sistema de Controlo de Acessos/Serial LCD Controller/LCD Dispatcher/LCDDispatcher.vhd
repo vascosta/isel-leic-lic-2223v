@@ -31,7 +31,7 @@ CurrentState <= STATE_WAITING when Reset = '1' else NextState when rising_edge(C
 --GENERATE NEXT STATE
 GenerateNextState:
 
-process (CurrentState, DXval, Din)
+process (CurrentState, DXval)
 
 begin
 

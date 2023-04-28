@@ -22,19 +22,22 @@ signal Count: integer := 0;
 begin
 
 	process(Clk, Ce, Clr)
+	
    begin
-		if rising_edge(Clk) then
+	
+		if (Clr = '1') then
+					Count <= 0;
+		
+	
+		elsif rising_edge(Clk) then
          if (Ce = '1' and Clr = '0') then
             if (Count = 15) then
 					Count <= 0;
             else
                Count <= Count + 1;
             end if;
-			else if (Clr = '1') then
-				Count <= 0;
 			end if;
-			end if;
-       end if;
+		end if;
 	end process;
 
    O <= std_logic_vector(to_signed(Count, O'length));

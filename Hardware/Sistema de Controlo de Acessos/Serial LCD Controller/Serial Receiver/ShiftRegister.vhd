@@ -23,10 +23,11 @@ begin
 
 	process(Clk, Reset, Enable)
 	begin
-		if rising_edge(Clk) then
-			if (Reset = '1') then
-				D_X <= "00000";
-			end if;
+		if (Reset = '1') then
+			D_X <= "00000";
+
+		elsif rising_edge(Clk) then
+
 			if (Enable = '1') then
 				D_X(0) <= Data;
 				D_X(1) <= D_X(0);
