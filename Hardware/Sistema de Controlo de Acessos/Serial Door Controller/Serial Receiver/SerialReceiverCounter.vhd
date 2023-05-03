@@ -6,9 +6,9 @@ entity SerialReceiverCounter is
 	port 
 	(
 		-- Input ports
-		clk 	: in std_logic;
+		Clk 	: in std_logic;
 		Ce  	: in std_logic;
-		clr	: in std_logic;
+		Clr	: in std_logic;
 
       -- Output ports
       O   	: out std_logic_vector(3 downto 0)
@@ -17,25 +17,28 @@ end SerialReceiverCounter;
 
 architecture behavioral of SerialReceiverCounter is
 
-signal count: integer := 0;
+signal Count: integer := 0;
 	 
 begin
 
-	process(clk)
+	process(Clk, Ce, Clr)
+	
    begin
-		if rising_edge(clk) then
-         if (Ce = '1' and clr = '0') then
-            if (count = 15) then
-					count <= 0;
+	
+		if (Clr = '1') then
+					Count <= 0;
+		
+	
+		elsif rising_edge(Clk) then
+         if (Ce = '1' and Clr = '0') then
+            if (Count = 15) then
+					Count <= 0;
             else
-               count <= count + 1;
+               Count <= Count + 1;
             end if;
-			else if (clr = '1') then
-				count <= 0;
 			end if;
-			end if;
-       end if;
+		end if;
 	end process;
 
-   O <= std_logic_vector(to_signed(count, O'length));
+   O <= std_logic_vector(to_signed(Count, O'length));
 end architecture behavioral;

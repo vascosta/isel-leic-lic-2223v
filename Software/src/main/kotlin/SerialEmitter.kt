@@ -39,7 +39,7 @@ object SerialEmitter {
     }
 
     // Retorna true se o canal série estiver ocupado
-    private fun isBusy(): Boolean = HAL.isBit(BUSY_MASK)
+    fun isBusy(): Boolean = HAL.isBit(BUSY_MASK)
 }
 
 fun main() {
