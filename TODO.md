@@ -1,9 +1,9 @@
 # KeyboardReader_TB
 Refactor it
 
-# SerialReceiver_TB for DOOR
+# SerialReceiver_TB (REFACTOR IT for DOOR)
 
-# SerialDoorControl_TB  for DOOR
+# SerialControl_TB (REFACTOR IT for DOOR)
 
 # SerialDoorController
 
