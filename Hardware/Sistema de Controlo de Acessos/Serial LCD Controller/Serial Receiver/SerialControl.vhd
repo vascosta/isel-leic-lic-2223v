@@ -71,6 +71,6 @@ end process;
 Clr 	<= '1' when (CurrentState = STATE_WAITING) 				else '0';
 Wr   	<= '1' when (CurrentState = STATE_RECEIVING)				else '0';
 DXval	<= '1' when (CurrentState = STATE_END) 					else '0';
-Busy	<= '1' when (CurrentState = STATE_WAITING_ACCEPT) 		else '0';
+Busy	<= '1' when (CurrentState = STATE_WAITING_ACCEPT or CurrentState = STATE_END) 		else '0';
 
 end behavioral;

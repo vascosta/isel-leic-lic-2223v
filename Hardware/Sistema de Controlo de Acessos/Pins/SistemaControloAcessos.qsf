@@ -1,14 +1,14 @@
-set_location_assignment PIN_W8     -to	D[0]
-set_location_assignment PIN_V5     -to 	WrL
+-set_location_assignment PIN_W8     -to	D[0]
+-set_location_assignment PIN_V5     -to 	WrL
 
 -set_location_assignment PIN_AA15  -to 	D[1]
 -set_location_assignment PIN_W13   -to 	D[2]
 -set_location_assignment PIN_AB13   -to 	D[3]
 -set_location_assignment PIN_Y11    -to 	D[4]
-set_location_assignment PIN_W11    -to 	D[1]
-set_location_assignment PIN_AA10   -to 	D[2]
-set_location_assignment PIN_Y8     -to 	D[3]
-set_location_assignment PIN_Y7     -to 	D[4]
+-set_location_assignment PIN_W11    -to 	D[1]
+-set_location_assignment PIN_AA10   -to 	D[2]
+-set_location_assignment PIN_Y8     -to 	D[3]
+-set_location_assignment PIN_Y7     -to 	D[4]
 
 -set_location_assignment PIN_W5     -to 	ButtonLine[0]
 -set_location_assignment PIN_AA14   -to 	ButtonLine[1]
@@ -18,7 +18,19 @@ set_location_assignment PIN_Y7     -to 	D[4]
 -set_location_assignment PIN_AB10   -to	ButtonColumn[1]
 -set_location_assignment PIN_AA9    -to	ButtonColumn[2]
 
-set_location_assignment PIN_C10    	-to   Reset
+set_location_assignment PIN_A8    	-to   D[0]
+set_location_assignment PIN_A9    	-to   D[1]
+set_location_assignment PIN_A10    	-to   D[2]
+set_location_assignment PIN_B10    	-to   D[3]
+set_location_assignment PIN_D13    	-to   D[4]
+set_location_assignment PIN_B11    	-to   OnNOff
+
+
+set_location_assignment PIN_C10    	-to   Sopen
+set_location_assignment PIN_C11    	-to   Sclose
+set_location_assignment PIN_D12    	-to   Psensor
+set_location_assignment PIN_F15    	-to   Reset
+
 set_location_assignment PIN_P11     -to  	Clk
 
 

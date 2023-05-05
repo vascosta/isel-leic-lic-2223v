@@ -20,16 +20,17 @@ object SerialEmitter {
     fun send(addr: Destination, data: Int) {
         Thread.sleep(clk)
         var nSSMask = nLCDsel_MASK
-        /*if (addr == Destination.DOOR) {
+        if (addr == Destination.DOOR) {
             nSSMask = nSDCsel_MASK
             while (isBusy()) {
                 Thread.sleep(1000)
             }
-        }*/
+        }
         HAL.clearBits(nSSMask)
         for (i in 4 downTo 0) {
             HAL.clearBits(SCLK_MASK)
             val sdx = (data shr i) and 1
+
             if (sdx == 1) HAL.setBits(SDX_MASK) else HAL.clearBits(SDX_MASK)
             HAL.setBits(SCLK_MASK)
         }

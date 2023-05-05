@@ -7,12 +7,14 @@ entity SistemaControloAcessos is
 		-- Input ports
 		Clk    	 		: in std_logic;
 		Reset     		: in std_logic;
+		Sclose			: in std_logic;
+		Sopen				: in std_logic;
+		Psensor			: in std_logic;
 --		ButtonLine  	: in std_logic_vector(3 downto 0);
 
 		-- Output ports
 		D     			: out std_logic_vector(4 downto 0);
-		DX     			: out std_logic_vector(4 downto 0);
-		WrL				: out std_logic;		WrLX				: out std_logic
+		OnNOff			: out std_logic
 --		ButtonColumn  	: out std_logic_vector(2 downto 0);
 --		LCD_Rs  			: out std_logic;
 --		LCD_E  			: out std_logic;
@@ -38,19 +40,23 @@ architecture structural of SistemaControloAcessos is
 --);
 --end component;
 
-component SerialLCDController is 
+component SerialDoorController is 
 	port
 	(
 		-- Input ports
-		nLCDsel	: in std_logic;
+		nSDCsel	: in std_logic;
 		SClk  	: in std_logic;
 		Clk		: in std_logic;
 		SDX    	: in std_logic;
 		Reset  	: in std_logic;
+		Sclose	: in std_logic;
+		Sopen		: in std_logic;
+		Psensor	: in std_logic;
 	
 		-- Output ports
 		D     	: out std_logic_vector(4 downto 0);
-		WrL	 	: out std_logic
+		OnNOff	: out std_logic;
+		Busy		: out std_logic
 	);
 end component;
 
@@ -68,21 +74,13 @@ end component;
 
 
 signal inputPort_X 		: std_logic_vector(7 downto 0);
-signal D_X					: std_logic_vector(4 downto 0);
-signal WrL_X				: std_logic;
-
 --signal KX_X					: std_logic_vector(3 downto 0);
 --signal Kack_X				: std_logic;
 
-signal SDX_X, SClk_X, nLCDsel_X	: std_logic;
+signal SDX_X, SClk_X, nSDCsel_X, Busy_X	: std_logic;
 
 
 begin
-
-D <= D_X;
-WrL <= WrL_X;
-DX <= D_X;
-WrLX <= WrL_X;
 
 --F1: UsbPort 			port map(inputPort(0) => KX_X(0), inputPort(1) => KX_X(1), inputPort(2) => KX_X(2), inputPort(3) => KX_X(3), 
 --										inputPort(4) => inputPort_X(4),
@@ -93,11 +91,12 @@ WrLX <= WrL_X;
 --										Kval => inputPort_X(4), K(0) => KX_X(0), K(1) => KX_X(1), K(2) => KX_X(2),
 --										K(3) => KX_X(3),  ButtonColumn => ButtonColumn);
 
-F1: UsbPort 				port map(inputPort => inputPort_X,
-											outputPort(0) => nLCDsel_X, outputPort(1) => SClk_X, outputPort(2) => SDX_X);
+F1: UsbPort 					port map(inputPort(5) => Busy_X,
+												outputPort(3) => nSDCsel_X, outputPort(1) => SClk_X, outputPort(2) => SDX_X);
 
-F2: SerialLCDController	port map(Clk => Clk, SDX => SDX_X, SClk => SClk_X, nLCDsel => nLCDsel_X, Reset => Reset,
-											D => D_X, WrL => WrL_X);									
+F2: SerialDoorController	port map(Clk => Clk, SDX => SDX_X, SClk => SClk_X, nSDCsel => nSDCsel_X, Reset => Reset,
+												Sclose => Sclose, Sopen => Sopen, Psensor => Psensor,
+												D => D, OnNOff => OnNOff, Busy => Busy_X);									
 
 end structural;
 

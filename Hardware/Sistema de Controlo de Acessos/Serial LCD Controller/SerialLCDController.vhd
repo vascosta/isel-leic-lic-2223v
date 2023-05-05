@@ -65,7 +65,7 @@ component ClkDiv is
 end component;
 
 signal Done_X, Dxval_X, Clk_X, Busy_X	: std_logic;
-signal Din_X 						: std_logic_vector(4 downto 0);
+signal Din_X 									: std_logic_vector(4 downto 0);
 
 begin
 
