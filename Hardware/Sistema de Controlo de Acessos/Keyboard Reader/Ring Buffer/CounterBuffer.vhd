@@ -22,7 +22,7 @@ signal Count: integer := 0;
 	 
 begin
 
-	process(Clk, Ce, UpDown)
+	process(Clk, Ce, Clr, UpDown)
 	
    begin
 		if (Clr = '1') then

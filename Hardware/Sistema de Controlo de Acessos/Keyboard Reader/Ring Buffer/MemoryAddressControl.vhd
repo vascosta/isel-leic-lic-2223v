@@ -62,22 +62,25 @@ component RingBufferMux IS
 end component;
 
 
-signal O_Buffer_X, O_Put_X, O_Get_X	: std_logic_vector(2 downto 0); 									
+signal O_Buffer_X, O_Put_X, O_Get_X							: std_logic_vector(2 downto 0); 	
+signal O_Put_Dummy_X, O_Get_Dummy_X, Ce_X, UpDown_X	: std_logic;				
 
 begin
 
 Full <= O_Buffer_X(2) and O_Buffer_X(1) and O_Buffer_X(0);
 empty <= not O_Buffer_X(2) and not O_Buffer_X(1) and not O_Buffer_X(0);
 
+Ce_X		<= IncPut or IncGet;
+UpDown_X <= not IncGet;
 
-U0: RingBufferMux port map (I => O_Put_X, I2 => O_Get_X, S => PutNGet, O => D);
+U0: RingBufferMux port map (I => O_Get_X, I2 => O_Put_X, S => PutNGet, O => D);
 												
-U1: CounterBuffer port map (Clk => Clk, Ce => '1', Clr => Reset, UpDown => PutNGet, O => O_Buffer_X);
+U1: CounterBuffer port map (Clk => Clk, Ce => Ce_X, Clr => Reset, UpDown => UpDown_X, O => O_Buffer_X);
 
-U3: Counter			port map (Clk => Clk, Ce => IncPut, Clr => Reset, Limit => 7, 
+U3: Counter			port map (Clk => Clk, Ce => IncPut, Clr => Reset, Limit => 7, O(3) => O_Put_Dummy_X,
 									 O(2) => O_Put_X(2), O(1) => O_Put_X(1), O(0) => O_Put_X(0));
 												 
-U4: Counter			port map (Clk => Clk, Ce => IncGet, Clr => Reset, Limit => 7, 
+U4: Counter			port map (Clk => Clk, Ce => IncGet, Clr => Reset, Limit => 7, O(3) => O_Get_Dummy_X,
 									 O(2) => O_Get_X(2), O(1) => O_Get_X(1), O(0) => O_Get_X(0));												 
 
 end structural;
