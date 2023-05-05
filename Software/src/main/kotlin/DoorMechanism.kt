@@ -26,6 +26,6 @@ fun main() {
     DoorMechanism.init()
     println("Finished DoorMechanism.init()")
     Thread.sleep(1000)
-    DoorMechanism.open(1)
+    //DoorMechanism.open(1)
     DoorMechanism.close(4)
 }

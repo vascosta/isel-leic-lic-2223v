@@ -24,6 +24,7 @@ component Counter is
 		-- Input ports
 		Clk	: in std_logic;
       Ce		: in std_logic;
+		Limit	: in integer;
 
 		-- Output ports
       O   	: out std_logic_vector(3 downto 0)
@@ -76,7 +77,7 @@ BL_X(1) <= ButtonLine(1);
 BL_X(2) <= ButtonLine(2);
 BL_X(3) <= ButtonLine(3);
 
-T1: Counter	port map (Clk => Clk , Ce => Kscan, 
+T1: Counter	port map (Clk => Clk , Ce => Kscan, Limit => 15, 
 							 O(3) => OCounter_X(3), O(2) => OCounter_X(2), O(1) => OCounter_X(1), O(0) => OCounter_X(0));
 								
 T2: Mux 		port map (I(3) => BL_X(3), I(2) => BL_X(2), I(1) => BL_X(1), I(0) => BL_X(0), 
