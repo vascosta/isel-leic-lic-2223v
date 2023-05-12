@@ -30,7 +30,6 @@ object SerialEmitter {
         for (i in 4 downTo 0) {
             HAL.clearBits(SCLK_MASK)
             val sdx = (data shr i) and 1
-
             if (sdx == 1) HAL.setBits(SDX_MASK) else HAL.clearBits(SDX_MASK)
             HAL.setBits(SCLK_MASK)
         }
