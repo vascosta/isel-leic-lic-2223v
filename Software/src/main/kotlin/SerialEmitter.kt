@@ -23,7 +23,7 @@ object SerialEmitter {
         if (addr == Destination.DOOR) {
             nSSMask = nSDCsel_MASK
             while (isBusy()) {
-                Thread.sleep(1000)
+                Thread.sleep(clk * 10)
             }
         }
         HAL.clearBits(nSSMask)

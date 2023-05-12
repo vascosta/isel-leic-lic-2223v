@@ -6,13 +6,21 @@ object FileAccess {
     fun write(fileName: String, fileContent: String) = File(fileName).bufferedWriter().use { out ->
         out.write(fileContent)
     }
+
+    fun update(fileName: String, fileContent: String) {
+        val finalFinalContent = read(fileName) + fileContent
+        File(fileName).bufferedWriter().use { out ->
+            out.write(finalFinalContent.joinToString(System.lineSeparator()))
+        }
+    }
 }
 
 fun main() {
     val fileName = "USERS.txt"
     val fileRead = FileAccess.read(fileName)
     fileRead.forEach { println(it) }
-    val fileContent = "3;0;Vasco Costa"
+    val fileContent = "3;0;Vasco Costa;"
+    FileAccess.update(fileName, fileContent)
     FileAccess.write(fileName, fileContent)
 }
 

@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="UsbPort">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/UsbPort.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
