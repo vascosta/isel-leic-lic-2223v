@@ -50,17 +50,12 @@ object LCD {
         writeNibble(false, 3)
         Thread.sleep(1)   // Esperar x ms
         writeNibble(false, 3)
-
         writeNibble(false, 2)
 
         writeCMD(40)
-
         writeCMD(8)
-
         writeCMD(1)
-
         writeCMD(6)
-
         writeCMD(15)
     }
 
