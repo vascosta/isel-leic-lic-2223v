@@ -17,14 +17,14 @@ Refactor it
 
 # CounterBuffer_TB
 
-# RingBufferControl and TB
+# RingBufferControl_TB
 
-# RingBuffer and TB
+# RingBuffer_TB
 
-# OutputBuffer and TB
+# OutputBuffer_TB
 
-# BufferControl and TB
+# BufferControl_TB
 
-# OutputRegister and TB
+# OutputRegister_TB
 
 

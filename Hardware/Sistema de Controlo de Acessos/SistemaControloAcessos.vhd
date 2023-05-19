@@ -9,13 +9,13 @@ entity SistemaControloAcessos is
 		ButtonLine  	: in std_logic_vector(3 downto 0);
 
 		-- Output ports
-		Pswitch		: out std_logic;
-		HEX0			: out std_logic_vector(7 downto 0);
-		HEX1			: out std_logic_vector(7 downto 0);
-		HEX2			: out std_logic_vector(7 downto 0);
-		HEX3			: out std_logic_vector(7 downto 0);
-		HEX4			: out std_logic_vector(7 downto 0);
-		HEX5			: out std_logic_vector(7 downto 0);
+		Pswitch			: out std_logic;
+		HEX0				: out std_logic_vector(7 downto 0);
+		HEX1				: out std_logic_vector(7 downto 0);
+		HEX2				: out std_logic_vector(7 downto 0);
+		HEX3				: out std_logic_vector(7 downto 0);
+		HEX4				: out std_logic_vector(7 downto 0);
+		HEX5				: out std_logic_vector(7 downto 0);
 		ButtonColumn  	: out std_logic_vector(2 downto 0)
 );
 end SistemaControloAcessos;
@@ -118,7 +118,7 @@ F4: door_mecanism				port map(MCKL => Clk, RST => Reset, onOff => OnNOff_X, open
 												v(0) => D_X(1), v(1) => D_X(2), v(2) => D_X(3), v(3) => D_X(4), Pswitch => Pswitch, 
 												Sopen => Sopen_X, Sclose => Sclose_X, Pdetector => Psensor_X,
 												HEX0 => HEX0, HEX1 => HEX1, HEX2 => HEX2, HEX3 => HEX3, HEX4 => HEX4,
-												HEX5 => HEX5, HEX6 => HEX6, HEX7 => HEX7, HEX8 => HEX8, HEX9 => HEX9)
+												HEX5 => HEX5)
 
 end structural;
 
