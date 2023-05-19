@@ -85,7 +85,7 @@ signal Q_X, D_X 													: std_logic_vector (3 downto 0);
 
 begin
 
-F1: KeyDecode 				port map (Kack => Kack_X, Clk => Clk, Reset => Reset, ButtonLine => ButtonLine, 
+F1: KeyDecode 				port map (Kack => Kack_X, Clk => Clk_X, Reset => Reset, ButtonLine => ButtonLine, 
 											 Kval => Kval_X, K => D_X, ButtonColumn => ButtonColumn);
 														 
 F2: RingBuffer 			port map (Clk => Clk, Reset => Reset, CTS => CTS_X, DAV => Kval_X, D => D_X,

@@ -13,7 +13,7 @@ entity Counter is
 
       -- Output ports
       O   	: out std_logic_vector(3 downto 0)
-    	);
+    );
 end Counter;
 
 architecture behavioral of Counter is

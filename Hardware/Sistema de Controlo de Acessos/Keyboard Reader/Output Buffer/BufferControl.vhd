@@ -20,7 +20,7 @@ end BufferControl;
 
 architecture behavioral of BufferControl is
 
-type STATE_TYPE is (STATE_WAITING, STATE_RECEIVING, STATE_ACCEPTED);
+type STATE_TYPE is (STATE_WAITING, STATE_RECEIVING, STATE_ACKNOWLEDGED, STATE_END);
 
 signal CurrentState, NextState: STATE_TYPE;
 
@@ -43,24 +43,32 @@ begin
 													end if;	
 																					
 			
-			when STATE_RECEIVING  =>	  	if(Ack = '1') then		
-														NextState <= STATE_ACCEPTED; 			
-													else NextState <= STATE_RECEIVING;
+			when STATE_RECEIVING  =>	  	if(load = '1') then		
+														NextState <= STATE_RECEIVING; 			
+													else 
+														NextState <= STATE_ACKNOWLEDGED;
 													end if;
+													
+			when STATE_ACKNOWLEDGED 	 =>	  		if(Ack = '0') then      
+																	NextState <= STATE_ACKNOWLEDGED;
+																else 
+																	NextState <= STATE_END;
+																end if;													
 																				
-			when STATE_ACCEPTED 	 =>	  	if(Ack = '0') then      
+			when STATE_END 	 =>	  		if(Ack = '0') then      
 														NextState <= STATE_WAITING;
-													else NextState <= STATE_ACCEPTED;
+													else 
+														NextState <= STATE_END;
 													end if;
 																					
-				end case;
+			end case;
 
 end process;
 
 --Generate Outputs
 
-OBfree <= '1' when (CurrentState = STATE_WAITING)		else '0';
-Wreg 	 <= '1' when (CurrentState = STATE_RECEIVING)	else '0';
-Dval   <= '1' when (CurrentState = STATE_ACCEPTED)		else '0';
+OBfree <= '1' when (CurrentState = STATE_WAITING)			else '0';
+Wreg 	 <= '1' when (CurrentState = STATE_RECEIVING)		else '0';
+Dval   <= '1' when (CurrentState = STATE_ACKNOWLEDGED)	else '0';
 
 end behavioral;																					
