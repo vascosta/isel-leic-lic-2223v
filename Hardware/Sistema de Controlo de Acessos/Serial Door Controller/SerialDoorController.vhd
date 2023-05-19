@@ -48,7 +48,7 @@ component DoorController is
 		Clk 		: in std_logic;
 		Reset    : in std_logic;
 		Dval 		: in std_logic;
-		Din	 	: in std_logic_vector(4 downto 0);
+		OC		 	: in std_logic_vector(4 downto 0);
 		Sclose	: in std_logic;
 		Sopen		: in std_logic; 
 		Psensor 	: in std_logic;
@@ -72,14 +72,14 @@ component ClkDiv is
 end component;
 
 signal Done_X, Dval_X, Clk_X, Busy_X	: std_logic;
-signal Din_X 						: std_logic_vector(4 downto 0);
+signal OC_X 									: std_logic_vector(4 downto 0);
 
 begin
 
 U0: SerialReceiver 			port map (Clk => Clk, SDX => SDX, SClk => SClk, nSS => nSDCsel, Accept => Done_X, Reset => Reset, 
-												 D => Din_X, DXval => Dval_X, Busy => Busy);
+												 D => OC_X, DXval => Dval_X, Busy => Busy);
 													
-U1: DoorController     		port map (Clk => Clk, Reset => Reset, Dval => Dval_X, Din => Din_X, Sclose => Sclose, Sopen => Sopen,
+U1: DoorController     		port map (Clk => Clk, Reset => Reset, Dval => Dval_X, OC => OC_X, Sclose => Sclose, Sopen => Sopen,
 												 Psensor => Psensor,
 												 OnNOff => OnNOff, Dout => D, Done => Done_X);
 												 

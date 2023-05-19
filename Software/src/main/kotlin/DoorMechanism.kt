@@ -25,7 +25,10 @@ object DoorMechanism {
 fun main() {
     DoorMechanism.init()
     println("Finished DoorMechanism.init()")
-    Thread.sleep(1000)
-    //DoorMechanism.open(1)
-    DoorMechanism.close(4)
+    while (true) {
+        DoorMechanism.open(10)
+        Thread.sleep(1000)
+        DoorMechanism.close(5)
+    }
+
 }

@@ -6,10 +6,11 @@ entity SistemaControloAcessos is
 	(
 		-- Input ports
 		Clk    	 		: in std_logic;
+		Reset				: in std_logic;
+		Pswitch			: IN std_logic;
 		ButtonLine  	: in std_logic_vector(3 downto 0);
 
-		-- Output ports
-		Pswitch			: out std_logic;
+		-- Output ports		
 		HEX0				: out std_logic_vector(7 downto 0);
 		HEX1				: out std_logic_vector(7 downto 0);
 		HEX2				: out std_logic_vector(7 downto 0);
@@ -96,9 +97,9 @@ end component;
 
 
 signal Q_X					: std_logic_vector(3 downto 0);
-signal ACK_X, Dval_X		: std_logic;
+signal D_X					: std_logic_vector(4 downto 0);
 
-signal SDX_X, SClk_X, nSDCsel_X, Busy_X, Sopen_X, Sclose_X, Psensor_X, OnNOff_X, D_X	: std_logic;
+signal ACK_X, Dval_X, SDX_X, SClk_X, nSDCsel_X, Busy_X, Sopen_X, Sclose_X, Psensor_X, OnNOff_X	: std_logic;
 
 begin
 
@@ -114,11 +115,11 @@ F3: SerialDoorController	port map(Clk => Clk, SDX => SDX_X, SClk => SClk_X, nSDC
 												Sclose => Sclose_X, Sopen => Sopen_X, Psensor => Psensor_X,
 												D => D_X, OnNOff => OnNOff_X, Busy => Busy_X);	
 												
-F4: door_mecanism				port map(MCKL => Clk, RST => Reset, onOff => OnNOff_X, openClose => D_X(0), 
+F4: door_mecanism				port map(MCLK => Clk, RST => Reset, onOff => OnNOff_X, openClose => D_X(0), 
 												v(0) => D_X(1), v(1) => D_X(2), v(2) => D_X(3), v(3) => D_X(4), Pswitch => Pswitch, 
 												Sopen => Sopen_X, Sclose => Sclose_X, Pdetector => Psensor_X,
 												HEX0 => HEX0, HEX1 => HEX1, HEX2 => HEX2, HEX3 => HEX3, HEX4 => HEX4,
-												HEX5 => HEX5)
+												HEX5 => HEX5);
 
 end structural;
 
