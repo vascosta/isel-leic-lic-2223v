@@ -8,7 +8,7 @@
 
 # RingBufferControl and TB
 
-# MemoryAdressControl and TB
+# MemoryAddressControl and TB
 
 # CounterBuffer_TB
 
