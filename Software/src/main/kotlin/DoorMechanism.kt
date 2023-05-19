@@ -30,5 +30,4 @@ fun main() {
         Thread.sleep(1000)
         DoorMechanism.close(5)
     }
-
 }
