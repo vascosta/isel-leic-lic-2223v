@@ -32,9 +32,10 @@ object Users {
     fun removeUser(uin: String) = users.removeIf { user -> user.uin == uin }
     fun changePassword(uin: String, newPassword: String) = users.first { user -> user.uin == uin }.apply { pin = newPassword }
     fun addMessageToUser(uin: String, newMessage: String) = users.first { user -> user.uin == uin }.apply { message = newMessage }
+    private fun toString(user: User): String = "${user.uin};${user.pin};${user.userName};${user.message}"
     fun writeUsers() {
         users.forEach {
-            usersToWrite.add("${it.uin};${it.pin};${it.userName};${it.message}")
+            usersToWrite.add(toString(it))
         }
         FileAccess.write(USERS_FILE, usersToWrite)
     }
