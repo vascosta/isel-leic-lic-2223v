@@ -29,8 +29,8 @@ object Users {
         return uin
     }
     fun removeUser(uin: String) = users.removeIf { user -> user.uin == uin }
-    fun changePassword(uin: String, newPassword: String) = users.first { user -> user.uin == uin }.apply { pin = newPassword }
-    fun addMessageToUser(uin: String, newMessage: String) = users.first { user -> user.uin == uin }.apply { message = newMessage }
+    fun changeUserPin(uin: String, newPassword: String) = users.first { user -> user.uin == uin }.apply { pin = newPassword }
+    fun changeUserMessage(uin: String, newMessage: String) = users.first { user -> user.uin == uin }.apply { message = newMessage }
     private fun toString(user: User): String = "${user.uin};${user.pin};${user.userName};${user.message}"
     fun writeUsers() {
         users.forEach {
@@ -47,8 +47,8 @@ fun main() {
     println(Users.getUserMessage("6") == "")
     FileAccess.read("Users.txt").forEach { println(it) }
     val uin = Users.addUser("1234", "Vasco Costa")
-    Users.changePassword("2", "4321")
-    Users.addMessageToUser(uin, "Your car is ready")
+    Users.changeUserPin("2", "4321")
+    Users.changeUserMessage(uin, "Your car is ready")
     Users.removeUser("6")
     Users.clearUsersFile()
     println(FileAccess.read("Users.txt").isEmpty())

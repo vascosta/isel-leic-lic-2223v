@@ -14,27 +14,20 @@ object App {
             while (!M.verify()) {
                 //
             }
+            //escrever out of service no lcd
             println("Turn M key to off, to terminate the maintenance mode.")
             println("Commands: NEW, DEL, MSG, or OFF")
             while (true) {
                 print("Maintenance> ")
                 when (readln().toUpperCase()) {
-                    "NEW" -> {
-                        Others.exceptionHandler { addUser() }
-                    }
-                    "DEL" -> {
-                        Others.exceptionHandler { deleteUser() }
-                    }
-                    "MSG" -> {
-                        Others.exceptionHandler { addMessage() }
-                    }
+                    "NEW" -> Others.exceptionHandler { addUser() }
+                    "DEL" -> Others.exceptionHandler { deleteUser() }
+                    "MSG" -> Others.exceptionHandler { addMessage() }
                     "OFF" -> {
                         Others.exceptionHandler { turnOff() }
                         exitProcess(0)
                     }
-                    else -> {
-                        println("Unknown command.")
-                    }
+                    else -> println("Unknown command.")
                 }
             }
         }
@@ -63,17 +56,38 @@ object App {
                 Users.removeUser(uin)
                 println("User $uin:$userName removed.")
             }
-            "N" -> {
-                println("Command aborted.")
-            }
-            else -> {
-                println("Unknown command.")
-            }
+            "N" -> println("Command aborted.")
+            else -> println("Unknown command.")
         }
 
     }
     private fun addMessage() {
-        println("MSG")
+        print("UIN? ")
+        val uin = readln()
+        val msg = Users.getUserMessage(uin)
+        val userName = Users.getUserName(uin)
+        if (msg != "") {
+            println("User has this message: $msg.")
+            print("Remove this message Y/N? ")
+            when (readln().toUpperCase()) {
+                "Y" -> {
+                    Users.changeUserMessage(uin, "")
+                    addNewMessage(uin, userName)
+                }
+                "N" -> println("Command aborted.")
+                else -> println("Unknown command.")
+            }
+        }
+        else {
+            addNewMessage(uin, userName)
+        }
+
+    }
+    private fun addNewMessage(uin: String, userName: String) {
+        print("Message? ")
+        val newMsg = readln()
+        Users.changeUserMessage(uin, newMsg)
+        println("The message \"$newMsg\" has been associated to $uin:$userName.")
     }
     private fun turnOff() {
         Users.clearUsersFile()
