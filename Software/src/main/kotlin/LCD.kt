@@ -88,9 +88,11 @@ fun main() {
     var count = 0
     while (true) {
         LCD.write("LCD COUNT: $count")
+        Thread.sleep(1000)
         LCD.clear()
         count++
         if (count == 10) {
+            LCD.clear()
             LCD.cursor(1, 0)
             LCD.write("WE REACHED 10!")
             LCD.clear()

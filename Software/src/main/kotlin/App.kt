@@ -14,7 +14,8 @@ object App {
             while (!M.verify()) {
                 //
             }
-            //escrever out of service no lcd
+            TUI.writeCentralized("Out of service", 0, true)
+            TUI.writeCentralized("Wait", 1)
             println("Turn M key to off, to terminate the maintenance mode.")
             println("Commands: NEW, DEL, MSG, or OFF")
             while (true) {
