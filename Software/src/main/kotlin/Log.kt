@@ -9,7 +9,7 @@ object Log {
     private val dateFormat = SimpleDateFormat("dd/M/yyyy")
     private val timeFormat = SimpleDateFormat("hh:mm:ss")
 
-    init {
+    fun init() {
         clearLogFile()
     }
     fun addLog(uin: String) = log.add(Log(uin, dateFormat.format(Date()), timeFormat.format(Date())))

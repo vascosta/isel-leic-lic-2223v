@@ -5,7 +5,7 @@ object Users {
     private val users = mutableListOf<User>()
     private val usersToWrite = mutableListOf<String>()
 
-    init {
+    fun init() {
         val fileLines = FileAccess.read(USERS_FILE)
         fileLines.forEach { line ->
             val u = line.split(";")
@@ -14,11 +14,10 @@ object Users {
         }
     }
     private fun getUserInfo(uin: String): User = users.first { user -> user.uin == uin }
-    fun getUserPassword(uin: String): String = getUserInfo(uin).pin
+    fun getUserPin(uin: String): String = getUserInfo(uin).pin
     fun getUserName(uin: String): String = getUserInfo(uin).userName
     fun getUserMessage(uin: String): String = getUserInfo(uin).message
-    fun addUser(password: String, userName: String): String {
-        require(userName.length <= 16) { "Username must be less than 16 characters" }
+    fun addUser(pin: String, userName: String): String {
         val lastUin = users.last().uin.toInt()
         val uin = if (users.isEmpty()) "000"
         else {
@@ -26,7 +25,7 @@ object Users {
             else if (lastUin + 1 >= 10) "0${lastUin + 1}"
             else "00${lastUin + 1}"
         }
-        users.add(User(uin, password, userName, ""))
+        users.add(User(uin, pin, userName, ""))
         return uin
     }
     fun removeUser(uin: String) = users.removeIf { user -> user.uin == uin }
@@ -43,7 +42,7 @@ object Users {
 }
 
 fun main() {
-    println(Users.getUserPassword("6"))
+    println(Users.getUserPin("6"))
     println(Users.getUserName("6"))
     println(Users.getUserMessage("6") == "")
     FileAccess.read("Users.txt").forEach { println(it) }
