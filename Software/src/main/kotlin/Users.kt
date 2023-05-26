@@ -13,6 +13,7 @@ object Users {
             users.add(User(u[0], u[1], u[2], u[3]))
         }
     }
+    fun isUser(uin: String, pin: String): Boolean = users.any { user -> user.uin == uin && user.pin == pin }
     private fun getUserInfo(uin: String): User = users.first { user -> user.uin == uin }
     fun getUserPin(uin: String): String = getUserInfo(uin).pin
     fun getUserName(uin: String): String = getUserInfo(uin).userName

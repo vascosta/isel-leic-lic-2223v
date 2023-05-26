@@ -11,7 +11,9 @@ entity SistemaControloAcessos is
 		M					: in std_logic;
 		ButtonLine  	: in std_logic_vector(3 downto 0);
 
-		-- Output ports		
+		-- Output ports
+		Wrl				: out std_logic;
+		Dout				: out std_logic_vector(4 downto 0);		
 		HEX0				: out std_logic_vector(7 downto 0);
 		HEX1				: out std_logic_vector(7 downto 0);
 		HEX2				: out std_logic_vector(7 downto 0);
@@ -37,6 +39,22 @@ component KeyboardReader is
 		Dval      		: out std_logic;
 		Q	    			: out std_logic_vector(3 downto 0);
 		ButtonColumn  	: out std_logic_vector(2 downto 0)
+	);
+end component;
+
+component SerialLCDController is 
+	port
+	(
+		-- Input ports
+		nLCDsel	: in std_logic;
+		SClk  	: in std_logic;
+		Clk		: in std_logic;
+		SDX    	: in std_logic;
+		Reset  	: in std_logic;
+	
+		-- Output ports
+		D     	: out std_logic_vector(4 downto 0);
+		WrL	 	: out std_logic
 	);
 end component;
 
@@ -97,30 +115,33 @@ end component;
 
 
 
-signal Q_X					: std_logic_vector(3 downto 0);
-signal D_X					: std_logic_vector(4 downto 0);
+signal Q_X	: std_logic_vector(3 downto 0);
+signal D_X	: std_logic_vector(4 downto 0);
 
-signal ACK_X, Dval_X, SDX_X, SClk_X, nSDCsel_X, Busy_X, Sopen_X, Sclose_X, Psensor_X, OnNOff_X	: std_logic;
+signal ACK_X, Dval_X, SDX_X, SClk_X, nSDCsel_X, Busy_X, Sopen_X, Sclose_X, Psensor_X, OnNOff_X, nLCDsel_X	: std_logic;
 
 begin
 
 F1: UsbPort 					port map(inputPort(0) => Q_X(0), inputPort(1) => Q_X(1), inputPort(2) => Q_X(2),
-												inputPort(3) => Q_X(3), inputPort(4) => Dval_X, inputPort(6) => Busy_X,
-												outputPort(1) => nSDCsel_X, outputPort(3) => SDX_X, outputPort(4) => SClk_X,
-												outputPort(7) => ACK_X);
+												inputPort(3) => Q_X(3), inputPort(4) => Dval_X, inputPort(6) => Busy_X, inputPort(7) => M,
+												outputPort(0) => nLCDsel_x, outputPort(1) => nSDCsel_X, outputPort(3) => SDX_X, 
+												outputPort(4) => SClk_X, outputPort(7) => ACK_X);
 												
 F2: KeyboardReader			port map(ACK => ACK_X, Clk => Clk, Reset => Reset, ButtonLine => ButtonLine,
 												Dval => Dval_X, Q => Q_X,  ButtonColumn => ButtonColumn);												
 
 F3: SerialDoorController	port map(Clk => Clk, SDX => SDX_X, SClk => SClk_X, nSDCsel => nSDCsel_X, Reset => Reset,
 												Sclose => Sclose_X, Sopen => Sopen_X, Psensor => Psensor_X,
-												D => D_X, OnNOff => OnNOff_X, Busy => Busy_X);	
+												D => D_X, OnNOff => OnNOff_X, Busy => Busy_X);												
 												
 F4: door_mecanism				port map(MCLK => Clk, RST => Reset, onOff => OnNOff_X, openClose => D_X(0), 
 												v(0) => D_X(1), v(1) => D_X(2), v(2) => D_X(3), v(3) => D_X(4), Pswitch => Pswitch, 
 												Sopen => Sopen_X, Sclose => Sclose_X, Pdetector => Psensor_X,
 												HEX0 => HEX0, HEX1 => HEX1, HEX2 => HEX2, HEX3 => HEX3, HEX4 => HEX4,
 												HEX5 => HEX5);
+												
+F5: SerialLCDController		port map(Clk => Clk, SDX => SDX_X, SClk => SClk_X, nLCDsel => nLCDsel_X, Reset => Reset,
+												D => Dout, WrL => Wrl);													
 
 end structural;
 

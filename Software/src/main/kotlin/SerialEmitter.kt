@@ -1,7 +1,7 @@
 // Envia tramas para os diferentes módulos Serial Receiver.
 object SerialEmitter {
 
-    private val clk: Long = 100
+    private const val clk: Long = 150
 
     enum class Destination {
         LCD,
@@ -11,6 +11,7 @@ object SerialEmitter {
     // Inicia a classe
     fun init() {
         HAL.init()
+        HAL.clearBits(nSDCsel_MASK)
         HAL.clearBits(nLCDsel_MASK)
         HAL.clearBits(SCLK_MASK)
         HAL.clearBits(SDX_MASK)

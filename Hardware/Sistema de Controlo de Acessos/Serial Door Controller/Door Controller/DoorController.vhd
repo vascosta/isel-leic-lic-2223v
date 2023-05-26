@@ -74,7 +74,7 @@ begin
 end process;
 
 -- GENERATE OUTPUTS
-OnNOff 	<= '1'	when (CurrentState = STATE_FECHO or CurrentState = STATE_ABERTURA) else '0';
+OnNOff 	<= '1'	when ((CurrentState = STATE_FECHO and Sclose = '0') or (CurrentState = STATE_ABERTURA and Sopen = '0')) else '0';
 Dout(0) 	<= '1'	when (CurrentState = STATE_ABERTURA) else OC(0);
 Dout(4)  <=	OC(4);
 Dout(3)	<= OC(3);

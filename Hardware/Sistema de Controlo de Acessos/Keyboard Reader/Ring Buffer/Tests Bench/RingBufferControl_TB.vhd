@@ -31,13 +31,16 @@ end component;
 constant MClk_PERIOD 		: time := 20 ns;
 constant MClk_HALF_PERIOD	: time := MClk_PERIOD /2 ;
 
-signal Clk_TB, Reset_TB, DAV_TB, CTS_TB, Full_TB, Empty_TB: std_logic;
+signal Clk_TB, Reset_TB, DAV_TB, CTS_TB, Full_TB, Empty_TB, Wr_TB, Wreg_TB,
+selPnG_TB, incPut_TB, incGet_TB, DAC_TB: std_logic;
 
 begin
 
 -- UNIT UNDER TEST
 UUT: RingBufferControl port map (Clk => Clk_TB, Reset => Reset_TB, 
-			  DAV => DAV_TB, CTS => CTS_TB, Full => Full_TB, Empty => Empty_TB);
+			  DAV => DAV_TB, CTS => CTS_TB, Full => Full_TB, Empty => Empty_TB,
+			  Wr => Wr_TB, Wreg => Wreg_TB, selPnG => selPnG_TB, incPut => incPut_TB,
+			  incGet => incGet_TB, DAC => DAC_TB);
 
 Clk_gen : process 
 

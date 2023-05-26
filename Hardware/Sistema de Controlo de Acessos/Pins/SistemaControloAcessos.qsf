@@ -1,14 +1,14 @@
--set_location_assignment PIN_W8     -to	D[0]
--set_location_assignment PIN_V5     -to 	WrL
+set_location_assignment PIN_W8     -to	Dout[0]
+set_location_assignment PIN_V5     -to 	WrL
 
--set_location_assignment PIN_AA15  -to 	D[1]
--set_location_assignment PIN_W13   -to 	D[2]
--set_location_assignment PIN_AB13   -to 	D[3]
--set_location_assignment PIN_Y11    -to 	D[4]
--set_location_assignment PIN_W11    -to 	D[1]
--set_location_assignment PIN_AA10   -to 	D[2]
--set_location_assignment PIN_Y8     -to 	D[3]
--set_location_assignment PIN_Y7     -to 	D[4]
+-set_location_assignment PIN_AA15   -to 	Dout[1]
+-set_location_assignment PIN_W13    -to 	Dout[2]
+-set_location_assignment PIN_AB13   -to 	Dout[3]
+-set_location_assignment PIN_Y11    -to 	Dout[4]
+set_location_assignment PIN_W11    -to 	Dout[1]
+set_location_assignment PIN_AA10   -to 	Dout[2]
+set_location_assignment PIN_Y8     -to 	Dout[3]
+set_location_assignment PIN_Y7     -to 	Dout[4]
 
 set_location_assignment PIN_W5     -to 	ButtonLine[0]
 set_location_assignment PIN_AA14   -to 	ButtonLine[1]
@@ -73,6 +73,7 @@ set_location_assignment PIN_N20     -to 	HEX5[6]
 set_location_assignment PIN_L19     -to 	HEX5[7]
 
 set_location_assignment PIN_C10    	-to   Pswitch
+set_location_assignment PIN_B14    	-to   M
 set_location_assignment PIN_F15    	-to   Reset
 
 set_location_assignment PIN_P11     -to  	Clk
