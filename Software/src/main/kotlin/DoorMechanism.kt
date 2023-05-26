@@ -19,7 +19,7 @@ object DoorMechanism {
         SerialEmitter.send(SerialEmitter.Destination.DOOR, velocity shl 1 or 0)
     }
     // Verifica se o comando anterior está concluído
-    private fun finished() : Boolean = !SerialEmitter.isBusy()
+    fun finished() : Boolean = !SerialEmitter.isBusy()
 }
 
 fun main() {

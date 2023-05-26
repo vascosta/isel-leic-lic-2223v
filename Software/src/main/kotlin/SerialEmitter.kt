@@ -1,7 +1,7 @@
 // Envia tramas para os diferentes módulos Serial Receiver.
 object SerialEmitter {
 
-    private const val clk: Long = 150
+    private const val clk: Long = 50
 
     enum class Destination {
         LCD,

@@ -52,10 +52,15 @@ object App {
                 TUI.writeFailedMessage("Login failed")
                 return
             }
-            if (pin == "????") getAccess()
+            if (pin == "????") {
+                TUI.clearLine(1)
+                getAccess()
+            }
             TUI.writeDate()
             if(!Users.isUser(uin, pin)) return
             access(uin)
+            TUI.writeText(TUI.dateFormatted, 0)
+            break
         }
     }
     private fun getUin(uin: CharArray): String? {
@@ -72,8 +77,7 @@ object App {
             pin[colIdx - 4] = TUI.waitForKey(5000)
             if (colIdx == 4 && pin[0] == '#') return null
             if (pin[colIdx - 4] == '*') return "????"
-            if (pin[colIdx - 4] == '#') pin[colIdx - 4] = '?'
-            TUI.writeText("${pin[colIdx - 4]}", 1, column = colIdx)
+            TUI.writeText("*", 1, column = colIdx)
             if (pin[colIdx - 4] == 0.toChar()) return null
         }
         return String(pin)
@@ -86,6 +90,7 @@ object App {
         val userName = Users.getUserName(uin)
         TUI.writeCentralized(userName, 1)
         Users.getUserMessage(uin).also { message ->
+            TUI.clearScreen()
             if (message != "") {
                 if (message.length >= 17) {
                     TUI.writeText(message.substring(0, 16), 0)
@@ -98,10 +103,26 @@ object App {
         }
         if (TUI.waitForKey(2000) == '#') changePIN(uin)
         TUI.writeText(userName, 0, 0)
-
+        doorManagement()
     }
     private fun doorManagement() {
-
+        TUI.writeCentralized("Door opening", 1)
+        DoorMechanism.open(10)
+        while (!DoorMechanism.finished()) {
+            // waiting to open
+        }
+        TUI.clearLine(1)
+        TUI.writeCentralized("Door open", 1)
+        Thread.sleep(2000)
+        TUI.clearLine(1)
+        TUI.writeCentralized("Door closing", 1)
+        DoorMechanism.close(5)
+        while (!DoorMechanism.finished()) {
+            // waiting to close
+        }
+        TUI.clearLine(1)
+        TUI.writeCentralized("Door closed", 1)
+        TUI.clearScreen()
     }
 
     private fun changePIN(uin: String) {
