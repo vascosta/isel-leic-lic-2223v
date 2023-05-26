@@ -1,7 +1,5 @@
 # SerialReceiver_TB (REFACTOR IT with busy)
 
-# SerialControl_TB (REFACTOR IT with busy)
-
 # SerialDoorController_TB
 
 # DoorController_TB
