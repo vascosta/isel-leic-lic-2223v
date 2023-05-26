@@ -12,11 +12,7 @@
 
 # CounterBuffer_TB
 
-# RingBufferControl_TB
-
 # RingBuffer_TB
-
-# OutputBuffer_TB
 
 # OutputRegister_TB
 

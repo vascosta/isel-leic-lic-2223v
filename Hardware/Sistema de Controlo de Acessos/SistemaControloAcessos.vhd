@@ -7,7 +7,8 @@ entity SistemaControloAcessos is
 		-- Input ports
 		Clk    	 		: in std_logic;
 		Reset				: in std_logic;
-		Pswitch			: IN std_logic;
+		Pswitch			: in std_logic;
+		M					: in std_logic;
 		ButtonLine  	: in std_logic_vector(3 downto 0);
 
 		-- Output ports		
