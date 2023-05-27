@@ -20,9 +20,8 @@ object LCD {
     }
 
     // Escreve um nibble de comando/dados no LCD
-    private fun writeNibble(rs: Boolean, data: Int) {
-        writeNibbleSerial(rs, data)
-    }
+    private fun writeNibble(rs: Boolean, data: Int) = writeNibbleSerial(rs, data)
+
 
     // Escreve um byte de comando/dados no LCD
     fun writeByte(rs: Boolean, data: Int) {
@@ -31,14 +30,10 @@ object LCD {
     }
 
     // Escreve um comando no LCD
-    fun writeCMD(data: Int) {
-        writeByte(false, data)
-    }
+    fun writeCMD(data: Int) = writeByte(false, data)
 
     // Escreve um dado no LCD
-    fun writeDATA(data: Int) {
-        writeByte(true, data)
-    }
+    fun writeDATA(data: Int) = writeByte(true, data)
 
     // Envia a sequência de iniciação para comunicação a 4 bits.
     fun init() {
@@ -60,20 +55,15 @@ object LCD {
     }
 
     // Escreve um caráter na posição corrente.
-    fun write(c: Char) {
-        writeDATA(c.code)
-    }
+    fun write(c: Char) = writeDATA(c.code)
 
     // Escreve uma string na posição corrente.
     fun write(text: String) {
-        for (c in text)
-            write(c)
+        for (c in text) write(c)
     }
 
     // Envia comando para posicionar cursor (‘line’:0..LINES-1 , ‘column’:0..COLS-1)
-    fun cursor(line: Int, column: Int) {
-        writeCMD((line * 0x40 + column) or 0x80)
-    }
+    fun cursor(line: Int, column: Int) = writeCMD((line * 0x40 + column) or 0x80)
 
     // Envia comando para limpar o ecrã e posicionar o cursor em (0,0)
     fun clear() {

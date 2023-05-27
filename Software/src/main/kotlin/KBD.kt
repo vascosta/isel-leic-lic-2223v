@@ -1,6 +1,5 @@
 import isel.leic.utils.Time
 
-
 object KBD { // Ler teclas. Métodos retornam ‘0’..’9’,’#’,’*’ ou NONE.
 
     private const val NONE = 0
@@ -17,13 +16,9 @@ object KBD { // Ler teclas. Métodos retornam ‘0’..’9’,’#’,’*’ o
         if (!HAL.isBit(DVAL_MASK)) {
             return NONE.toChar()
         }
-
         val key = HAL.readBits(Q3__0_MASK)
-
         while (HAL.isBit(DVAL_MASK)) { HAL.setBits(ACK_MASK) }
-
         HAL.clearBits(ACK_MASK)
-
         return arrayTeclas[key]
     }
 
