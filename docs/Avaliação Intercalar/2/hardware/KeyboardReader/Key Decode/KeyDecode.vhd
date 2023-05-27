@@ -25,6 +25,7 @@ component KeyScan is
 		-- Input ports
       Kscan    		: in std_logic;
 		Clk	  			: in std_logic;
+		Reset				: in std_logic;
 		ButtonLine		: in std_logic_vector(3 downto 0);
 
 		-- Output ports
@@ -54,7 +55,7 @@ signal Kscan_X, Kpress_X : std_logic;
 
 begin
 
-F1: KeyScan 	port map(Kscan => Kscan_X, Clk => Clk, ButtonLine => ButtonLine, 
+F1: KeyScan 	port map(Kscan => Kscan_X, Clk => Clk, Reset => Reset, ButtonLine => ButtonLine, 
 								K => K, Kpress => Kpress_X, ButtonColumn => ButtonColumn);
 								
 F2: KeyControl port map(Kpress => Kpress_X, Kack => Kack, Clk => Clk, Reset => Reset,

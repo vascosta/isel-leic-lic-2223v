@@ -9,8 +9,6 @@ object TUI {
         LCD.init()
         KBD.init()
     }
-
-
     fun clearLine(line: Int) =writeText("                ", line)
     fun clearScreen() = LCD.clear()
     fun waitForKey(time: Long) = KBD.waitKey(time)

@@ -32,7 +32,8 @@ component SerialReceiver is
 	
 		-- Output ports
 		D     	: out std_logic_vector(4 downto 0);
-		DXval 	: out std_logic
+		DXval 	: out std_logic;
+		Busy		: out std_logic
 	);
 end component;
 
@@ -63,17 +64,17 @@ component ClkDiv is
 	);
 end component;
 
-signal Done_X, Dxval_X, Clk_X	: std_logic;
-signal Din_X 						: std_logic_vector(4 downto 0);
+signal Done_X, Dxval_X, Clk_X, Busy_X	: std_logic;
+signal Din_X 									: std_logic_vector(4 downto 0);
 
 begin
 
 U0: SerialReceiver 			port map (Clk => Clk, SDX => SDX, SClk => SClk, nSS => nLCDsel, Accept => Done_X, Reset => Reset, 
-												 D => Din_X, DXval => Dxval_X);
+												 D => Din_X, DXval => Dxval_X, Busy => Busy_X);
 													
 U1: LCDDispatcher      		port map (Clk => Clk_X, Reset => Reset, Dxval => Dxval_X, Din => Din_X, 
 												 WrL => WrL, Dout => D, Done => Done_X);
 												 
-U2: ClkDiv  	generic map(50) port map (Clk_in => Clk, Clk_out => Clk_X);												 
+U2: ClkDiv  	generic map(500) port map (Clk_in => Clk, Clk_out => Clk_X);												 
 
 end structural;

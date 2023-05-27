@@ -16,7 +16,7 @@ end Mux;
 architecture structural of Mux is
 begin
 
-o <= ((not S(0) and not S(1) and I(0)) or (S(0) and not S(1) and I(1)) or 
+O <= ((not S(0) and not S(1) and I(0)) or (S(0) and not S(1) and I(1)) or 
       (not S(0) and S(1) and I(2)) or (S(0) and S(1) and I(3)));
 
 end structural;

@@ -14,9 +14,7 @@ object Log {
     }
     fun addLog(uin: String) = log.add(Log(uin, dateFormat.format(Date()), timeFormat.format(Date())))
     fun writeLog() {
-        log.forEach {
-            logsToWrite.add("${it.uin};${it.date};${it.time};")
-        }
+        log.forEach { logsToWrite.add("${it.uin};${it.date};${it.time};") }
         FileAccess.write(LOG_FILE, logsToWrite)
     }
     fun clearLogFile() = FileAccess.clear(LOG_FILE)
