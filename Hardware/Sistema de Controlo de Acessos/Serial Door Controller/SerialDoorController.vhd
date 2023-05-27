@@ -60,16 +60,6 @@ component DoorController is
 	);
 end component;
 
-component ClkDiv is 
-	generic (div: natural := 50000000);
-
-	port 
-	( 
-		Clk_in	: in std_logic;
-	
-		Clk_out	: out std_logic
-	);
-end component;
 
 signal Done_X, Dval_X, Clk_X, Busy_X	: std_logic;
 signal OC_X 									: std_logic_vector(4 downto 0);
@@ -81,8 +71,5 @@ U0: SerialReceiver 			port map (Clk => Clk, SDX => SDX, SClk => SClk, nSS => nSD
 													
 U1: DoorController     		port map (Clk => Clk, Reset => Reset, Dval => Dval_X, OC => OC_X, Sclose => Sclose, Sopen => Sopen,
 												 Psensor => Psensor,
-												 OnNOff => OnNOff, Dout => D, Done => Done_X);
-												 
----U2: ClkDiv  	generic map(500) port map (Clk_in => Clk, Clk_out => Clk_X);												 
-
+												 OnNOff => OnNOff, Dout => D, Done => Done_X);																								
 end structural;
