@@ -15,7 +15,21 @@ object App {
             TUI.writeText(TUI.dateFormatted, 0)
             while (!M.verify()) {
                 TUI.writeDate()
-                getAccess()
+                try {
+                    getAccess()
+                } catch (e: Exception) {
+                    when(e.message) {
+                        "Login failed" -> {
+                            TUI.writeFailedMessage("Login failed")
+                            getAccess()
+                        }
+                        "Command aborted" -> {
+                            TUI.writeFailedMessage("Command aborted")
+                            getAccess()
+                        }
+                        else -> getAccess()
+                    }
+                }
             }
             TUI.writeCentralized("Out of service", 0, true)
             TUI.writeCentralized("Wait", 1)
@@ -36,49 +50,38 @@ object App {
             }
         }
     }
-
-
     private fun getAccess() {
         while (true) {
+            TUI.writeDate()
             val uinText = "???".toCharArray()
             TUI.writeText("UIN:${String(uinText)}", 1)
-            val uin = getUin(uinText) ?: return
-            if (uin == "???") getAccess()
-            TUI.writeDate()
+            val uin = getUin(uinText)
             val pinText = "????".toCharArray()
             TUI.writeText("PIN:${String(pinText)}", 1)
             val pin = getPin(pinText)
-            if (pin == null) {
-                TUI.writeFailedMessage("Login failed")
-                return
-            }
-            if (pin == "????") {
-                TUI.clearLine(1)
-                getAccess()
-            }
             TUI.writeDate()
-            if(!Users.isUser(uin, pin)) return
+            require(Users.isUser(uin, pin)) { "Login failed" }
             access(uin)
-            TUI.writeText(TUI.dateFormatted, 0)
-            break
+            return
         }
     }
-    private fun getUin(uin: CharArray): String? {
+    private fun getUin(uin: CharArray): String {
         for (colIdx in 4..6) {
             uin[colIdx - 4] = TUI.waitForKey(5000)
-            if (uin[colIdx - 4] == '*' || uin[colIdx - 4] == '#') return "???"
+            require(uin[colIdx - 4] != 0.toChar()) { "Command aborted" } // No key pressed
+            require(uin[0] != '*') { "Command aborted" }
+            require(uin[colIdx - 4] != '#') { "Invalid key" }
             TUI.writeText("${uin[colIdx - 4]}", 1, column = colIdx)
-            if (uin[colIdx - 4] == 0.toChar()) return null
         }
         return String(uin)
     }
-    private fun getPin(pin: CharArray): String? {
+    private fun getPin(pin: CharArray): String {
         for (colIdx in 4..7) {
             pin[colIdx - 4] = TUI.waitForKey(5000)
-            if (colIdx == 4 && pin[0] == '#') return null
-            if (pin[colIdx - 4] == '*') return "????"
+            require(pin[colIdx - 4] != 0.toChar()) { "Command aborted" } //No key pressed
+            require(pin[0] != '*') { "Command aborted" }
+            require(pin[colIdx - 4] != '#') { "Invalid key" }
             TUI.writeText("*", 1, column = colIdx)
-            if (pin[colIdx - 4] == 0.toChar()) return null
         }
         return String(pin)
     }
@@ -93,17 +96,36 @@ object App {
             TUI.clearScreen()
             if (message != "") {
                 if (message.length >= 17) {
-                    TUI.writeText(message.substring(0, 16), 0)
-                    TUI.writeCentralized(message.substring(17), 1, true)
+                    TUI.writeCentralized(message.substring(0, 16), 0)
+                    TUI.writeCentralized(message.substring(17), 1)
                 }
                 else TUI.writeCentralized(message, 0, true)
+                TUI.clearScreen()
                 if (TUI.waitForKey(2000) == '*') Users.changeUserMessage(uin, "")
-
             }
         }
         if (TUI.waitForKey(2000) == '#') changePIN(uin)
         TUI.writeText(userName, 0, 0)
         doorManagement()
+    }
+    private fun changePIN(uin: String) {
+        try {
+            val pinText = "????".toCharArray()
+            val firstPin = getPin(pinText)
+            val secondPin = getPin(pinText)
+            require (firstPin == secondPin) { "PINs do not match" }
+            Users.changeUserPin(uin, firstPin)
+            TUI.writeText("New pin is $firstPin", 1)
+        } catch (e: Exception) {
+            when(e.message) {
+                "Command aborted" -> return
+                "Invalid key" -> changePIN(uin)
+                "PINs do not match" -> {
+                    TUI.writeFailedMessage("PINs do not match")
+                    return
+                }
+            }
+        }
     }
     private fun doorManagement() {
         TUI.writeCentralized("Door opening", 1)
@@ -124,23 +146,6 @@ object App {
         TUI.writeCentralized("Door closed", 1)
         TUI.clearScreen()
     }
-
-    private fun changePIN(uin: String) {
-        val pinText = "????".toCharArray()
-        val firstPin = getPin(pinText)
-        if (firstPin == null) {
-            TUI.writeFailedMessage("PINs do not match.")
-            return
-        }
-        val secondPin = getPin(pinText)
-        if (secondPin == null) {
-            TUI.writeFailedMessage("PINs do not match.")
-            return
-        }
-        Users.changeUserPin(uin, firstPin)
-        TUI.writeText("New pin is $firstPin", 1)
-    }
-
     private fun addUser() {
         print("User name? ")
         val userName = readln()
