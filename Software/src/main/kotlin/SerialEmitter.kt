@@ -1,8 +1,6 @@
 // Envia tramas para os diferentes módulos Serial Receiver.
 object SerialEmitter {
 
-    private const val clk: Long = 50
-
     enum class Destination {
         LCD,
         DOOR
@@ -11,20 +9,19 @@ object SerialEmitter {
     // Inicia a classe
     fun init() {
         HAL.init()
-        HAL.clearBits(nSDCsel_MASK)
-        HAL.clearBits(nLCDsel_MASK)
+        HAL.setBits(nSDCsel_MASK)
+        HAL.setBits(nLCDsel_MASK)
         HAL.clearBits(SCLK_MASK)
         HAL.clearBits(SDX_MASK)
     }
 
     // Envia uma trama para o SerialReceiver identificado o destino em addr e os bits de dados em ‘data’.
     fun send(addr: Destination, data: Int) {
-        Thread.sleep(clk)
         var nSSMask = nLCDsel_MASK
         if (addr == Destination.DOOR) {
             nSSMask = nSDCsel_MASK
             while (isBusy()) {
-                Thread.sleep(clk * 10)
+                Thread.sleep(100)
             }
         }
         HAL.clearBits(nSSMask)
@@ -36,7 +33,6 @@ object SerialEmitter {
         }
         HAL.clearBits(SCLK_MASK)
         HAL.setBits(nSSMask)
-        Thread.sleep(clk)
     }
 
     // Retorna true se o canal série estiver ocupado

@@ -10,7 +10,7 @@ object Users {
         fileLines.forEach { line ->
             val u = line.split(";")
             require (users.size <= 1000)
-            users.add(User(u[0], u[1], u[2], u[3]))
+            users.add(User(u[0], encryptAndDecryptPin(u[1]), u[2], u[3]))
         }
     }
     fun isUser(uin: String, pin: String): Boolean = users.any { user -> user.uin == uin && user.pin == pin }
@@ -32,14 +32,21 @@ object Users {
     fun removeUser(uin: String) = users.removeIf { user -> user.uin == uin }
     fun changeUserPin(uin: String, newPassword: String) = users.first { user -> user.uin == uin }.apply { pin = newPassword }
     fun changeUserMessage(uin: String, newMessage: String) = users.first { user -> user.uin == uin }.apply { message = newMessage }
-    private fun toString(user: User): String = "${user.uin};${user.pin};${user.userName};${user.message}"
+    private fun toString(user: User): String = "${user.uin};${encryptAndDecryptPin(user.pin)};${user.userName};${user.message}"
+    private fun encryptAndDecryptPin(pin: String): String {
+        var pinToReturn = ""
+        pin.forEach { c ->
+            pinToReturn += (c.code xor 1).toChar()
+        }
+        return pinToReturn
+    }
     fun writeUsers() {
+        FileAccess.clear(USERS_FILE)
         users.forEach {
             usersToWrite.add(toString(it))
         }
         FileAccess.write(USERS_FILE, usersToWrite)
     }
-    fun clearUsersFile() = FileAccess.clear(USERS_FILE)
 }
 
 fun main() {
@@ -51,8 +58,4 @@ fun main() {
     Users.changeUserPin("2", "4321")
     Users.changeUserMessage(uin, "Your car is ready")
     Users.removeUser("6")
-    Users.clearUsersFile()
-    println(FileAccess.read("Users.txt").isEmpty())
-    Users.writeUsers()
-    FileAccess.read("Users.txt").forEach { println(it) }
 }

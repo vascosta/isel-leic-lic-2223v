@@ -4,7 +4,8 @@ import java.time.format.DateTimeFormatter
 object TUI {
     private val DATE_PATTERN = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
     private var date = LocalDateTime.now()
-    var dateFormatted = date.format(DATE_PATTERN)
+    private var dateFormatted = date.format(DATE_PATTERN)
+    private const val CLK: Long = 3000
     fun init() {
         LCD.init()
         KBD.init()
@@ -13,9 +14,12 @@ object TUI {
     fun clearScreen() = LCD.clear()
     fun waitForKey(time: Long) = KBD.waitKey(time)
     fun writeCentralized(text: String, line: Int, clearScreen: Boolean = false) {
-        if (clearScreen) LCD.clear()
         LCD.cursor(line, 8 - text.length / 2)
         LCD.write(text)
+        if (clearScreen) {
+            Thread.sleep(CLK)
+            LCD.clear()
+        }
     }
     fun writeText(text: String, line: Int, column: Int = 0) {
         LCD.cursor(line, column)
@@ -25,17 +29,16 @@ object TUI {
         val currentDate = LocalDateTime.now()
         val currentDateFormatted = currentDate.format(DATE_PATTERN)
 
-        if (currentDate.minute != date.minute) {
+        if (currentDate != date) {
             date = currentDate
-            dateFormatted = currentDateFormatted.substring(11,16)
-            updateTime(dateFormatted)
+            dateFormatted = currentDateFormatted
+            writeCentralized(dateFormatted, 0, false)
         }
     }
-    private fun updateTime(text: String) = writeText(text, 0, 11)
     fun writeFailedMessage(message: String) {
         clearLine(1)
         writeCentralized(message, 1)
+        Thread.sleep(CLK / 3)
         clearLine(1)
-        Thread.sleep(2000)
     }
 }
