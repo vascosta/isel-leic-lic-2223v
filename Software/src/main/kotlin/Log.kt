@@ -10,7 +10,11 @@ object Log {
     private val timeFormat = SimpleDateFormat("hh:mm:ss")
 
     fun init() {
-        FileAccess.clear(LOG_FILE)
+        val fileLines = FileAccess.read(LOG_FILE)
+        fileLines.forEach { line ->
+            val l = line.split(";")
+            log.add(Log(l[0], l[1], l[2]))
+        }
     }
     fun addLog(uin: String) = log.add(Log(uin, dateFormat.format(Date()), timeFormat.format(Date())))
     fun writeLog() {

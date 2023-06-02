@@ -3,7 +3,7 @@ object Users {
     data class User(val uin: String, var pin: String, val userName: String, var message: String)
     private const val USERS_FILE = "Users.txt"
     private val users = mutableListOf<User>()
-    private val usersToWrite = mutableListOf<String>()
+    private var usersToWrite = mutableListOf<String>()
 
     fun init() {
         val fileLines = FileAccess.read(USERS_FILE)
@@ -42,10 +42,9 @@ object Users {
     }
     fun writeUsers() {
         FileAccess.clear(USERS_FILE)
-        users.forEach {
-            usersToWrite.add(toString(it))
-        }
+        users.forEach { usersToWrite.add(toString(it)) }
         FileAccess.write(USERS_FILE, usersToWrite)
+        usersToWrite = mutableListOf()
     }
 }
 
