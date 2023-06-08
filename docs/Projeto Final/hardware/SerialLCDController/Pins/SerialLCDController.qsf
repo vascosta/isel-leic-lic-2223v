@@ -1,0 +1,20 @@
+set_location_assignment PIN_N5     -to  Clk
+
+set_location_assignment PIN_C10    -to  SDX
+set_location_assignment PIN_C11    -to  SClk
+set_location_assignment PIN_D12    -to  nLCDsel
+set_location_assignment PIN_A12    -to  Reset
+
+-set_location_assignment PIN_A8     -to 	D[0]
+-set_location_assignment PIN_A9     -to 	D[1]
+-set_location_assignment PIN_A10    -to 	D[2]
+-set_location_assignment PIN_B10    -to 	D[3]
+-set_location_assignment PIN_D13    -to 	D[4]
+-set_location_assignment PIN_B11    -to 	WrL
+
+set_location_assignment PIN_W8     -to 	D[0]
+set_location_assignment PIN_AA15   -to 	D[1]
+set_location_assignment PIN_W13    -to 	D[2]
+set_location_assignment PIN_AB13   -to 	D[3]
+set_location_assignment PIN_Y11    -to 	D[4]
+set_location_assignment PIN_V5     -to 	WrL
